@@ -7,6 +7,7 @@ import SubCategoryManagement from '../pages/admin/subCategory/SubCategoryManagem
 import VehicleManagement from '../pages/admin/vehicles/vehicleManagement'
 import UsersManagement from '../pages/admin/users/UsersManagement'
 import VendorManagement from '../pages/admin/vendors/VendorManagement'
+import ServiceManagement from '../pages/admin/services/ServiceManagement'
 import AdminAuth from '../auth/adminAuth'
 const AdminRoutes = () => {
   return (
@@ -19,6 +20,8 @@ const AdminRoutes = () => {
                 <Route path='/Vehicles' element={<VehicleManagement /> } />
                 <Route path='/users' element={<UsersManagement /> } />
                 <Route path='/vendors' element={<VendorManagement /> } />
+                <Route path='/services' element={<ServiceManagement /> } />
+
 
 
             </Routes>

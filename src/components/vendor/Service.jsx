@@ -95,7 +95,7 @@ const Service = () => {
                         {service.vehicleId.model}
                       </p>
                       <p className="text-gray-600 mb-2">
-                        Price: ${service.price}
+                        Price: {service.price}
                       </p>
                       <p className="text-gray-600 mb-4">
                         Description: {service.description}

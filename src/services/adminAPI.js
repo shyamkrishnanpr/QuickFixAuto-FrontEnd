@@ -179,5 +179,24 @@ export const blockVendorApi = async(vendorId,newBlockedStatus)=>{
 }
 
 
+export const fetchServiceApi = async()=>{
+    try {
+        const response = await axios.get(`/admin/getServices`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const verifyServiceApi = async(serviceId)=>{
+    try {
+        const response = await axios.patch(`/admin/verifyService/${serviceId}`)
+        console.log(response.data,"in api  veri")
+        return response.data
+    } catch (error) {
+       console.log(error)
+    }
+}
+
 
 

@@ -25,10 +25,10 @@ const AddService = ({ onAddService, onCancel }) => {
   const [vehicles, setVehicles] = useState([]);
   const [brand, setBrand] = useState([]);
   const [filteredModels, setFilteredModels] = useState([]);
+  const [priceInput, setPriceInput] = useState("");
+  const [descriptionInput, setDescriptionInput] = useState("");
   const [selectedVehicleModel, setSelectedVehicleModel] = useState("");
   const [selectedModelImage, setSelectedModelImage] = useState("");
-
-  
 
   useEffect(() => {
     const fetchCategoryData = async () => {
@@ -59,17 +59,12 @@ const AddService = ({ onAddService, onCancel }) => {
     fetchVehicleData();
   }, []);
 
-
-
   const handleAddPoint = () => {
     if (pointInput.trim() !== "") {
       setVendorPoints([...vendorPoints, pointInput]);
       setPointInput("");
     }
   };
-
-
-
 
   const handleBrandChange = (e) => {
     const selectedBrand = e.target.value;
@@ -87,12 +82,10 @@ const AddService = ({ onAddService, onCancel }) => {
     const selectedModel = e.target.value;
     setSelectedVehicleModel(selectedModel);
 
-    // Find the selected model in the vehicles data
     const selectedVehicle = vehicles.find(
       (vehicle) => vehicle.model === selectedModel
     );
 
-    // If the selected model exists, set its image
     if (selectedVehicle) {
       setSelectedModelImage(
         `http://localhost:3000/vehicleImages/${selectedVehicle.image}`
@@ -125,7 +118,8 @@ const AddService = ({ onAddService, onCancel }) => {
     const updatedService = {
       ...newService,
       vehicle: selectedVehicleId,
-    
+      price: parseFloat(priceInput),
+      description: descriptionInput.slice(0, 25).toUpperCase(),
     };
     onAddService(updatedService);
   };
@@ -204,7 +198,6 @@ const AddService = ({ onAddService, onCancel }) => {
                 </select>
               </label>
 
-
               <label className="block mb-2">
                 Sub Category:
                 <select
@@ -220,6 +213,33 @@ const AddService = ({ onAddService, onCancel }) => {
                     </option>
                   ))}
                 </select>
+              </label>
+
+              <label className="block mb-2">
+                Price:
+                <input
+                  type="number"
+                  name="price"
+                  value={priceInput}
+                  onChange={(e) => setPriceInput(e.target.value)}
+                  className="w-full py-2 px-3 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                />
+              </label>
+
+              <label className="block mb-2">
+                Description (max 25 characters):
+                <input
+                  type="text"
+                  name="description"
+                  value={descriptionInput}
+                  onChange={(e) =>
+                    setDescriptionInput(e.target.value.slice(0, 25))
+                  }
+                  className="w-full py-2 px-3 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                />
+                <span className="text-sm text-gray-500">
+                  {descriptionInput.length}/25 characters
+                </span>
               </label>
 
               <button
