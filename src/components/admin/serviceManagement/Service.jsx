@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchServiceApi, verifyServiceApi } from "../../../services/adminAPI";
 import ConfirmationDialog from "../../util/ConfirmationDialog";
+import ServiceCard from "./ServiceCard";
 
 const Service = () => {
   const [services, setServices] = useState([]);
@@ -43,23 +44,22 @@ const Service = () => {
 
   return (
     <>
-      <div>
-        <h1>Pending requests</h1>
-        <ul>
-          {services &&
-            services.map((service) => (
-              <li key={service._id}>
-                <button onClick={() => handleVerifyClick(service._id)}>
-                  Verify
-                </button>
-              </li>
-            ))}
-        </ul>
+      <div className="container mx-auto p-4">
+      <h2 className="text-xl font-bold text-gray-700">SERVICE MANAGEMENT</h2>
+        <h4 className="text-xl align-middle justify-items-center text-gray-600 mt-2  ml-10 font-semibold mb-4">PENDING REQUESTS</h4>
+        {services.map((service) => (
+        <ServiceCard
+          key={service._id}
+          service={service}
+          onVerifyClick={handleVerifyClick}
+        />
+      ))}
+        
 
-        {/* Confirmation Dialog */}
+    
         {selectedService && (
           <ConfirmationDialog
-            message="Are you sure you want to verify this service?"
+            message="Are you sure you want to verify this service...?"
             onConfirm={confirmHandleVerify}
             onCancel={handleCancelVerify}
           />

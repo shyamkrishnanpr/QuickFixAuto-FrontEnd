@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchUsersApi, blockUserApi } from "../../../services/adminAPI";
+import ConfirmationDialog from "../../util/ConfirmationDialog";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [confirmationAction, setConfirmationAction] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -17,27 +20,48 @@ const Users = () => {
     fetchUserData();
   }, []);
 
-  const handleToggle = (userId) => {
-    console.log("clicked");
-    const userToToggle = users.find((user) => user._id === userId);
+  const handleCancelVerify = () => {
+    setSelectedUser(null);
+  };
 
-    if (userToToggle) {
-      const newBlockedStatus = !userToToggle.isBlock;
+  const handleActionConfirmation = (userId, action) => {
+    console.log("abc", userId);
 
-      blockUserApi(userId, newBlockedStatus).then(() => {
+    if (action === "block") {
+      blockUserApi(userId, true).then(() => {
         setUsers((prevUsers) =>
           prevUsers.map((user) =>
-            user._id === userId ? { ...user, isBlock: newBlockedStatus } : user
+            user._id === userId ? { ...user, isBlock: true } : user
+          )
+        );
+      });
+    } else if (action === "unblock") {
+      blockUserApi(userId, false).then(() => {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === userId ? { ...user, isBlock: false } : user
           )
         );
       });
     }
+
+    setConfirmationAction(null);
+    setSelectedUser(null);
+  };
+
+  const confirmBlockUser = (userId) => {
+    setSelectedUser(userId);
+    setConfirmationAction("block");
+  };
+
+  const confirmUnblockUser = (userId) => {
+    setSelectedUser(userId);
+    setConfirmationAction("unblock");
   };
 
   return (
     <>
       <div className="container mx-auto p-4">
-        
         <h2 className="text-xl font-bold text-gray-700">USER MANAGEMENT</h2>
         <table className="w-full border-collapse mt-3  ">
           <thead>
@@ -70,7 +94,11 @@ const Users = () => {
                       className={`${
                         user.isBlock ? "bg-red-600" : "bg-green-600"
                       } text-white px-2 py-1 rounded `}
-                      onClick={() => handleToggle(user._id)}
+                      onClick={() =>
+                        user.isBlock
+                          ? confirmUnblockUser(user._id)
+                          : confirmBlockUser(user._id)
+                      }
                     >
                       {user.isBlock ? "Unblock" : "Block"}
                     </button>
@@ -80,6 +108,17 @@ const Users = () => {
             })}
           </tbody>
         </table>
+        {confirmationAction && (
+          <ConfirmationDialog
+            message={`Are you sure you want to ${
+              confirmationAction === "block" ? "block" : "unblock"
+            } this user...?`}
+            onConfirm={() =>
+              handleActionConfirmation(selectedUser, confirmationAction)
+            }
+            onCancel={handleCancelVerify}
+          />
+        )}
       </div>
     </>
   );
