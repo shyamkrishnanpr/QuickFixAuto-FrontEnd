@@ -25,6 +25,7 @@ const RegisterForm = () => {
       .max(40, "The password must be at most 40 characters.")
       .required("Enter your password"),
     confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
       .min(6, "The password must be at least 6 characters.")
       .max(40, "The password must be at most 40 characters.")
       .required("Confirm the password"),

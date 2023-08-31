@@ -40,5 +40,14 @@ export const userLoginApi = async(values)=>{
     }
 }
 
+export const fetchServicesApi = async(userLocation)=>{
+    try {
+        const response = await axios.post('/user/services',{userLocation})
+        console.log(response.data,"in api")
+        return response.data
+    } catch (error) {
+        console.log(error,"errro in fetchApi")
+    }
+}
 
 

@@ -21,7 +21,9 @@ const Users = () => {
   }, []);
 
   const handleCancelVerify = () => {
+    setConfirmationAction(null);
     setSelectedUser(null);
+
   };
 
   const handleActionConfirmation = (userId, action) => {
