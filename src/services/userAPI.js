@@ -50,4 +50,14 @@ export const fetchServicesApi = async(userLocation)=>{
     }
 }
 
+export const fetchCategoriesApi = async()=>{
+    try {
+        const response = await axios.get('/user/categories')
+        return response.data
+        // console.log(response,"cat")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 

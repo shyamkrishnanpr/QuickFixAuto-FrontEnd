@@ -1,39 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
 const Landing = () => {
   const navigate = useNavigate();
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState("Calicut"); // Set Calicut as the default location
+  const [locationData, setLocationData] = useState({
+    latitude: 11.2588,
+    longitude: 75.7804,
+    name: "Calicut"
+  });
   const [vehicleBrand, setVehicleBrand] = useState("");
   const [vehicleModel, setVehicleModel] = useState("");
 
+  const locationOptions = [
+    { value: "Calicut", label: "Calicut", latitude: 11.2588, longitude: 75.7804 },
+    { value: "Thrissur", label: "Thrissur", latitude: 10.5276, longitude: 76.2144 },
+    { value: "Ernakulam", label: "Ernakulam", latitude: 9.9312, longitude: 76.2673 },
+  ];
 
   
+  const handleLocationChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedLocation(selectedValue);
 
-  const handleLocationSelection = async () => {
+    const selectedLocationData = locationOptions.find(
+      (location) => location.value === selectedValue
+    );
+
+    if (selectedLocationData) {
+      setLocationData({
+        latitude: selectedLocationData.latitude,
+        longitude: selectedLocationData.longitude,
+        name: selectedLocationData.label,
+      });
+    }
+  };
+
+  const handleLocationSelection = () => {
     try {
-      const position = await getCurrentLocation();
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      const location = { latitude: `${latitude}`, longitude: `${longitude}` };
-
-      navigate("/user/services", { state: { selectedLocation: location } });
+      if (locationData) {
+        navigate("/user/services", { state: { selectedLocation: locationData } });
+      } else {
+        console.error("Please select a location.");
+      }
     } catch (error) {
       console.error("Error getting user location:", error);
     }
-  };
-  const getCurrentLocation = () => {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          resolve(position);
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    });
   };
 
   return (
@@ -43,6 +55,23 @@ const Landing = () => {
           <h1 className="text-2xl text-red-600 font-semibold mb-4">
             Search Service centers near you...
           </h1>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Select Location:
+            </label>
+            <select
+              className="w-full p-2 border rounded-lg"
+              value={selectedLocation}
+              onChange={handleLocationChange}
+            >
+              {locationOptions.map((location) => (
+                <option key={location.value} value={location.value}>
+                  {location.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -62,7 +91,7 @@ const Landing = () => {
           </div>
 
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full"
+            className="bg-blue-500 hover.bg-blue-700 text-white font-semibold py-2 px-4 rounded-full"
             onClick={handleLocationSelection}
           >
             Search
