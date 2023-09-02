@@ -57,6 +57,17 @@ export const verifyOtpAndResetPasswordApi = async(data)=>{
   }
 }
 
+export const resetPasswordApi = async(newPassword)=>{
+  try {
+    const response = await axios.post("/user/resetPassword",{
+      newPassword:newPassword
+    })
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 
 

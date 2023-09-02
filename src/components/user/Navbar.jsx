@@ -20,7 +20,7 @@ const Navbar = () => {
         <div>
         <nav className="bg-gray-500 p-5">
           <div className="flex items-center justify-between">
-            <div className="text-red-500 font-semibold text-lg">QuickFix Autos </div>
+            <Link to='/user/dashboard' className="text-red-500 font-semibold text-lg">QuickFix Autos </Link>
             <ul className="flex space-x-4">
               <li>
                 <a href="#" className="text-white hover:text-blue-300">

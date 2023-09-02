@@ -111,7 +111,12 @@ const Login = () => {
                     className="text-red-500 text-xs mt-1"
                   />
                 </div>
-
+                <button
+              onClick={handleForgotPasswordClick}
+              className="block text-black p-2 rounded hover:text-red-700"
+            >
+              Forgot Password ...?
+            </button>
                 <button
                   className="w-full my-5 py-2 bg-red-800 hover:bg-red-700 text-white font-semibold rounded-lg"
                   disabled={loading}
@@ -121,12 +126,7 @@ const Login = () => {
                 </button>
               </Form>
             </Formik>
-            <button
-              onClick={handleForgotPasswordClick}
-              className="block text-black p-2 rounded"
-            >
-              Forgot Password
-            </button>
+            
           </div>
           
         </div>

@@ -6,6 +6,7 @@ import {
   userResendOtpApi,
   forgotOtpApi,
   verifyOtpAndResetPasswordApi,
+  resetPasswordApi
 } from "../../../services/userAPI";
 import { json } from "react-router";
 
@@ -161,16 +162,14 @@ export const verifyOtpForPasswordResetAsync = createAsyncThunk(
   "userAuth/verifyOtpForPasswordReset",
   async (otp, thunkAPI) => {
     try {
-
       const otptoken = localStorage.getItem("otpTokenForget");
       const otpObj = JSON.parse(otptoken);
       const otpToken = otpObj.token;
       const expirationTime = otpObj.expiresAt;
       const otpData = { otp, otpToken };
 
-
       const currentTime = Date.now();
-      
+
       if (expirationTime < currentTime) {
         console.log("otp expired");
         const message = "OTP Expired";
@@ -178,11 +177,10 @@ export const verifyOtpForPasswordResetAsync = createAsyncThunk(
 
       const response = await verifyOtpAndResetPasswordApi(otpData);
 
-      
-  if (response.success) {
-    localStorage.removeItem("otpTokenForget");
+      if (response.success) {
+        localStorage.removeItem("otpTokenForget");
       }
-    
+
       return response;
     } catch (error) {
       console.log("error in verifyOtpForPasswordResetAsync", error);
@@ -190,6 +188,19 @@ export const verifyOtpForPasswordResetAsync = createAsyncThunk(
     }
   }
 );
+
+export const resetPasswordAsync = createAsyncThunk(
+  "userAuth/resetPassword",
+  async(newPassword,thunkAPI)=>{
+    try {
+      const response = await resetPasswordApi(newPassword)
+      
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
 
 const initialState = user
   ? { isLoggedInUser: true, loading: false }

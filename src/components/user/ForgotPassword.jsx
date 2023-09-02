@@ -6,6 +6,10 @@ import {
 } from "../../store/reducers/user/UserRegistrationSlice";
 import { useNavigate } from "react-router";
 
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+
 const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -27,7 +31,7 @@ const ForgotPassword = () => {
       await dispatch(verifyOtpForPasswordResetAsync(otp)).then((response)=>{
         console.log(response)
         if(response?.payload?.success){
-            navigate('/user/resetPassword')
+            navigate(`/user/resetPassword/${encodeURIComponent(email)}`)
           }
       });
       
@@ -36,8 +40,18 @@ const ForgotPassword = () => {
     }
   };
 
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    otp: Yup.string()
+      .required('OTP is required'),
+  });
+  
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <>
+    <div className="min-h-screen flex items-center justify-center bg-gray-200">
       <div className="bg-white p-8 rounded shadow-md w-full sm:w-96">
         <h2 className="text-2xl text-red-700 font-bold mb-4">
           Forgot Password
@@ -85,6 +99,7 @@ const ForgotPassword = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
