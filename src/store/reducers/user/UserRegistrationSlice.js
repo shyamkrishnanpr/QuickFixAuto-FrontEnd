@@ -1,44 +1,48 @@
-import {createAsyncThunk,createSlice} from '@reduxjs/toolkit'
-import {userSignupApi,userOtpApi,userLoginApi,userResendOtpApi} from '../../../services/userAPI'
-
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  userSignupApi,
+  userOtpApi,
+  userLoginApi,
+  userResendOtpApi,
+  forgotOtpApi,
+  verifyOtpAndResetPasswordApi,
+} from "../../../services/userAPI";
+import { json } from "react-router";
 
 const user = JSON.parse(localStorage.getItem("userToken"));
 
 export const userSignUpAsync = createAsyncThunk(
-    "UserAuth/userSignUp",
-    async(user,thunkApi)=>{
-        try {
-            const response = await userSignupApi(user)
+  "UserAuth/userSignUp",
+  async (user, thunkApi) => {
+    try {
+      const response = await userSignupApi(user);
 
+      const expirationTimeInMinutes = 1;
+      const expirationTime =
+        new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
 
-            const expirationTimeInMinutes = 1;
-            const expirationTime =
-              new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
+      localStorage.setItem(
+        "otpTokenUser",
+        JSON.stringify({
+          token: response.token,
+          expiresAt: expirationTime,
+        })
+      );
 
-              localStorage.setItem(
-                "otpTokenUser",
-                JSON.stringify({
-                  token: response.token,
-                  expiresAt: expirationTime,
-                })
-              );
-        
-              return response;
-            
-        } catch (error) {
-            console.log("error in thunk",error)
-        }
+      return response;
+    } catch (error) {
+      console.log("error in thunk", error);
     }
+  }
 );
 
 export const otpVerificationAsync = createAsyncThunk(
   "userAuth/otpVerification",
-  async(otp,thunkAPI)=>{
+  async (otp, thunkAPI) => {
     try {
-      const otptoken = localStorage.getItem("otpTokenUser")
-      const otpObj = JSON.parse(otptoken)
-      const otpToken = otpObj.token
+      const otptoken = localStorage.getItem("otpTokenUser");
+      const otpObj = JSON.parse(otptoken);
+      const otpToken = otpObj.token;
       const expirationTime = otpObj.expiresAt;
       const otpData = { otp, otpToken };
 
@@ -47,7 +51,6 @@ export const otpVerificationAsync = createAsyncThunk(
       if (expirationTime < currentTime) {
         console.log("otp expired");
         const message = "OTP Expired";
-        
       }
 
       const response = await userOtpApi(otpData);
@@ -63,51 +66,47 @@ export const otpVerificationAsync = createAsyncThunk(
           JSON.stringify({
             token: response.token,
             userId: response._id,
-            expiresAt:expirationTime
+            expiresAt: expirationTime,
           })
         );
         return response;
       }
     } catch (error) {
-      console.log("error in otp thunk",error)
+      console.log("error in otp thunk", error);
     }
   }
 );
 
-
 export const resendOtpAsync = createAsyncThunk(
   "userAuth/resendOtp",
-  async(thunkAPI)=>{
+  async (thunkAPI) => {
     try {
-      const otptoken = localStorage.getItem("otpTokenUser")
-      const otpObj = JSON.parse(otptoken)
-      const otpToken = otpObj.token
+      const otptoken = localStorage.getItem("otpTokenUser");
+      const otpObj = JSON.parse(otptoken);
+      const otpToken = otpObj.token;
       const otpData = { otpToken };
-      const response = await userResendOtpApi(otpData)
+      const response = await userResendOtpApi(otpData);
 
-      console.log("response in resendthunk",response)
+      console.log("response in resendthunk", response);
       const expirationTimeInMinutes = 1;
       const expirationTime =
         new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
 
-        localStorage.removeItem("otpTokenUser")
-        localStorage.setItem(
-          "otpTokenUser",
-          JSON.stringify({
-            token: response.token,
-            expiresAt: expirationTime,
-          })
-        );
+      localStorage.removeItem("otpTokenUser");
+      localStorage.setItem(
+        "otpTokenUser",
+        JSON.stringify({
+          token: response.token,
+          expiresAt: expirationTime,
+        })
+      );
 
-
-    return response
-
+      return response;
     } catch (error) {
-      console.log("error in resend otp thunk",error)
+      console.log("error in resend otp thunk", error);
     }
   }
 );
-
 
 export const userLoginAsync = createAsyncThunk(
   "userAuth/login",
@@ -119,47 +118,112 @@ export const userLoginAsync = createAsyncThunk(
       const expirationTime =
         new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
 
-        localStorage.setItem(
-          "userToken",
-          JSON.stringify({
-            token: response.token,
-            userId: response._id,
-            expiresAt:expirationTime
-          })
-        );
-          return response
+      localStorage.setItem(
+        "userToken",
+        JSON.stringify({
+          token: response.token,
+          userId: response._id,
+          expiresAt: expirationTime,
+        })
+      );
+      return response;
     } catch (error) {
       console.log(error);
     }
   }
 );
 
+export const requestOtpForPasswordResetAsync = createAsyncThunk(
+  "userAuth/requestOtpForPasswordReset",
+  async (email, thunkAPI) => {
+    try {
+      const response = await forgotOtpApi(email);
+      const expirationTimeInMinutes = 1;
+      const expirationTime =
+        new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
+
+      localStorage.setItem(
+        "otpTokenForget",
+        JSON.stringify({
+          token: response.token,
+          expiresAt: expirationTime,
+        })
+      );
+      return response;
+    } catch (error) {
+      console.log("error in requestOtpForPasswordResetAsync", error);
+      throw error;
+    }
+  }
+);
+
+export const verifyOtpForPasswordResetAsync = createAsyncThunk(
+  "userAuth/verifyOtpForPasswordReset",
+  async (otp, thunkAPI) => {
+    try {
+
+      const otptoken = localStorage.getItem("otpTokenForget");
+      const otpObj = JSON.parse(otptoken);
+      const otpToken = otpObj.token;
+      const expirationTime = otpObj.expiresAt;
+      const otpData = { otp, otpToken };
 
 
+      const currentTime = Date.now();
+      
+      if (expirationTime < currentTime) {
+        console.log("otp expired");
+        const message = "OTP Expired";
+      }
 
+      const response = await verifyOtpAndResetPasswordApi(otpData);
 
-
-
-
+      
+  if (response.success) {
+    localStorage.removeItem("otpTokenForget");
+      }
+    
+      return response;
+    } catch (error) {
+      console.log("error in verifyOtpForPasswordResetAsync", error);
+      throw error;
+    }
+  }
+);
 
 const initialState = user
   ? { isLoggedInUser: true, loading: false }
-  : { isLoggedInUser: false, userId: null, loading: false };
+  : {
+      isLoggedInUser: false,
+      userId: null,
+      loading: false,
+      resetPasswordEmail: "",
+      isOtpSent: false,
+      isOtpVerified: false,
+    };
 
-  const userAuthSlice =  createSlice({
-    name:"userAuth",
-    initialState,
-    reducers:{
-      logout: (state) => {
-        localStorage.removeItem("userToken");
-        state.isLoggedInUser = false;
-        state.userId = null;
-        state.loading = false;
-      },
-      
+const userAuthSlice = createSlice({
+  name: "userAuth",
+  initialState,
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem("userToken");
+      state.isLoggedInUser = false;
+      state.userId = null;
+      state.loading = false;
     },
-    extraReducers:(builder)=>{
-      builder
+    setForgotPasswordEmail: (state, action) => {
+      state.resetPasswordEmail = action.payload;
+    },
+    requestOtpForPasswordReset: (state) => {
+      state.isOtpSent = true;
+    },
+    verifyOtpForPasswordReset: (state) => {
+      state.isOtpVerified = true;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
       .addCase(userSignUpAsync.pending, (state, action) => {
         state.loading = true;
       })
@@ -181,10 +245,9 @@ const initialState = user
       .addCase(otpVerificationAsync.rejected, (state, action) => {
         state.loading = false;
         state.isLoggedInUser = false;
-      })
-    }
-  })
+      });
+  },
+});
 
-
-  export const { logout } = userAuthSlice.actions;
+export const { logout, setResetEmail } = userAuthSlice.actions;
 export default userAuthSlice.reducer;

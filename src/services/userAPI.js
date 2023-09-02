@@ -18,6 +18,8 @@ export const userOtpApi = async (values) => {
   }
 };
 
+
+
 export const userResendOtpApi = async (values) => {
   try {
     const response = await axios.post("/user/resendOtp", values);
@@ -35,6 +37,30 @@ export const userLoginApi = async (values) => {
     console.log("error in loginApi", error);
   }
 };
+
+
+export const forgotOtpApi = async(email)=>{
+  try {
+    const response = await axios.post("/user/forgotPassword",{email})
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const verifyOtpAndResetPasswordApi = async(data)=>{
+  try {
+    const response = await axios.post("/user/verifyOtpForget",data);
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
+
+
 
 export const fetchServicesApi = async (userLocation) => {
   try {

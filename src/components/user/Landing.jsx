@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import {fetchVehicleDataApi} from "../../services/userAPI"
-
+import { fetchVehicleDataApi } from "../../services/userAPI";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -38,44 +37,40 @@ const Landing = () => {
     },
   ];
 
+  useEffect(() => {
+    const fetchVehicleData = async () => {
+      try {
+        const vehicleData = await fetchVehicleDataApi();
 
- useEffect(()=>{
-  const fetchVehicleData = async()=>{
-    try {
-      const vehicleData = await fetchVehicleDataApi()
-      
-      setVehicles(vehicleData)
-      const uniqueBrands = [
-        ...new Set(vehicleData.map((vehicle)=>vehicle.brand))
-      ]
-      setBrand(uniqueBrands)
-      
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  fetchVehicleData()
- },[])
+        setVehicles(vehicleData);
 
-  
- const handleBrandChange = (e) => {
-  const selectedBrand = e.target.value;
-  setSelectedBrand(selectedBrand)
-  const modelForBrand = vehicles
-    .filter((vehicle) => vehicle.brand === selectedBrand)
-    .map((vehicle) => vehicle.model);
+        console.log(vehicles, "vehicle");
+        const uniqueBrands = [
+          ...new Set(vehicleData.map((vehicle) => vehicle.brand)),
+        ];
+        setBrand(uniqueBrands);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchVehicleData();
+  }, []);
 
-  setFilteredModels(modelForBrand);
-  console.log(filteredModels,"mod")
-};
+  const handleBrandChange = (e) => {
+    const selectedBrand = e.target.value;
+    setSelectedBrand(selectedBrand);
+    const modelForBrand = vehicles
+      .filter((vehicle) => vehicle.brand === selectedBrand)
+      .map((vehicle) => vehicle.model);
 
-const handleModelChange = (e) => {
-  const selectedModel = e.target.value;
-  setSelectedModel(selectedModel);
-};
+    setFilteredModels(modelForBrand);
+    console.log(filteredModels, "mod");
+  };
 
-
-
+  const handleModelChange = (e) => {
+    const selectedModel = e.target.value;
+    setSelectedModel(selectedModel);
+  };
 
   const handleLocationChange = (e) => {
     const selectedValue = e.target.value;
@@ -85,11 +80,15 @@ const handleModelChange = (e) => {
       (location) => location.value === selectedValue
     );
 
+    const selectedVehicleId =
+      vehicles.find((vehicle) => vehicle.model === selectedModel)?._id || "";
+
     if (selectedLocationData) {
       setLocationData({
         latitude: selectedLocationData.latitude,
         longitude: selectedLocationData.longitude,
         name: selectedLocationData.label,
+        vehicleId:selectedVehicleId
       });
     }
   };
@@ -138,36 +137,36 @@ const handleModelChange = (e) => {
               Vehicle Brand:
             </label>
             <select
-                  name="brand"
-                  value={selectedBrand}
-                  onChange={handleBrandChange}
-                  className="w-full py-2  px-3 border rounded-lg "
-                >
-                  <option value="">Select a brand</option>
-                  {brand.map((brand) => (
-                    <option key={brand} value={brand}>
-                      {brand}
-                    </option>
-                  ))}
-                </select>
+              name="brand"
+              value={selectedBrand}
+              onChange={handleBrandChange}
+              className="w-full py-2  px-3 border rounded-lg "
+            >
+              <option value="">Select a brand</option>
+              {brand.map((brand) => (
+                <option key={brand} value={brand}>
+                  {brand}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Vehicle Model:
-          </label>
-          <select
-            className="w-full p-2 border rounded-lg"
-            value={selectedModel}
-            onChange={handleModelChange} // Add a function to handle model selection
-          >
-            <option value="">Select Model</option>
-            {filteredModels.map((model) => (
-              <option key={model} value={model}>
-                {model}
-              </option>
-            ))}
-          </select>
-        </div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Vehicle Model:
+            </label>
+            <select
+              className="w-full p-2 border rounded-lg"
+              value={selectedModel}
+              onChange={handleModelChange} // Add a function to handle model selection
+            >
+              <option value="">Select Model</option>
+              {filteredModels.map((model) => (
+                <option key={model} value={model}>
+                  {model}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <button
             className="bg-blue-500 hover.bg-blue-700 text-white font-semibold py-2 px-4 rounded-full"

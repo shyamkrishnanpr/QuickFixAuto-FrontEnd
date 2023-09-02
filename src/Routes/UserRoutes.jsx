@@ -7,6 +7,7 @@ import DashBoardPage from '../pages/user/Dashboard/DashBoardPage'
 import LoginPage from '../pages/user/Login/LoginPage'
 import ProfilePage from '../pages/user/Profile/ProfilePage'
 import ServicePage from '../pages/user/services/ServicePage'
+import ForgotPasswordPage from '../pages/user/ForgotPassword/ForgotPasswordPage'
 
 const UserRoutes = () => {
   return (
@@ -17,7 +18,7 @@ const UserRoutes = () => {
         <Route path='/login' element={<UserVerification><LoginPage/></UserVerification>} />
         <Route path='/profile' element={<UserVerification><ProfilePage/></UserVerification>} />
         <Route path='/services' element={<ServicePage/>} />
-        
+        <Route path='/forgot-password' element={<ForgotPasswordPage/>}/>
 
       
     </Routes>

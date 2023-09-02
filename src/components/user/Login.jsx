@@ -1,38 +1,45 @@
-import React from 'react'
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import {Link} from 'react-router-dom'
-import { userLoginAsync } from '../../store/reducers/user/UserRegistrationSlice';
+import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { userLoginAsync ,requestOtpForPasswordResetAsync} from "../../store/reducers/user/UserRegistrationSlice";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading } = useSelector((state) => state.userAuth);
+  const { loading, resetPasswordEmail, isOtpSent, isOtpVerified } = useSelector(
+    (state) => state.userAuth
+  );
 
-
-  
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-        .email('This is not a valid email.')
-        .required('Enter a valid email address'),
+      .email("This is not a valid email.")
+      .required("Enter a valid email address"),
     password: Yup.string()
-        .min(6, 'The password must be at least 6 characters.')
-        .max(40, 'The password must be at most 40 characters.')
-        .required('Enter your password'),
-});
+      .min(6, "The password must be at least 6 characters.")
+      .max(40, "The password must be at most 40 characters.")
+      .required("Enter your password"),
+  });
 
   const handleLogin = async (values) => {
     try {
       dispatch(userLoginAsync(values)).then((response) => {
         console.log("resonse in login page", response.payload.success);
-        if(response.payload.success){
-            navigate('/user/dashboard')
+        if (response.payload.success) {
+          navigate("/user/dashboard");
         }
-
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleForgotPasswordClick = async () => {
+    try {
+      navigate("/user/forgot-password"); 
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +49,7 @@ const Login = () => {
 
   return (
     <>
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="flex w-full max-w-3xl">
           <div className="bg-gradient-to-tr from-black to-red-600 p-8 rounded-l-lg shadow-md w-1/2">
             <h4 className="text-white text-center text-2xl font-bold  mt-16">
@@ -50,16 +57,19 @@ const Login = () => {
             </h4>
             <br />
             <p className="text-white text-sm text-center mb-4">
-            "Connect with Top-notch Service Stations! Register Now and Access
+              "Connect with Top-notch Service Stations! Register Now and Access
               a Network of Reliable Automotive Services for Your Vehicle."
               <br />
             </p>
 
             <p className="text-black text-center mb-4">
               Don't have an account.? <br />
-              <Link to="/user/register" className="block text-white p-2 rounded">
-              Register here..
-          </Link>
+              <Link
+                to="/user/register"
+                className="block text-white p-2 rounded"
+              >
+                Register here..
+              </Link>
             </p>
           </div>
           <div className="bg-white p-8 rounded-r-lg shadow-md flex-1">
@@ -111,12 +121,18 @@ const Login = () => {
                 </button>
               </Form>
             </Formik>
+            <button
+              onClick={handleForgotPasswordClick}
+              className="block text-black p-2 rounded"
+            >
+              Forgot Password
+            </button>
           </div>
+          
         </div>
       </div>
-      
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
