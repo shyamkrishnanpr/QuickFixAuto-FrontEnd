@@ -4,6 +4,10 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignUpAsync } from "../../store/reducers/user/UserRegistrationSlice";
+import LoadSpinner from "../util/LoadSpinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -13,8 +17,11 @@ const Registration = () => {
   const handleSubmit = async (values) => {
     try {
       dispatch(userSignUpAsync(values)).then((response)=>{
+        console.log(response)
         if(response?.payload?.success){
           navigate('/user/otp')
+        }else {
+          toast.error("user already exists.!");
         }
       })
       
@@ -48,7 +55,11 @@ const Registration = () => {
 
   return (
     <>
+    
+    {loading?(<LoadSpinner/>):(
+      
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <ToastContainer />
         <div className="flex w-full max-w-3xl">
           <div className="bg-gradient-to-tr from-black to-red-600 p-8 rounded-l-lg shadow-md w-1/2">
             <h4 className="text-white text-center text-2xl font-bold  mt-16">
@@ -162,13 +173,16 @@ const Registration = () => {
                   type="submit"
                   className="bg-red-800 hover:bg-red-700 text-white py-2 px-4 rounded-lg w-full"
                 >
-           {loading ? "Loading..." : "Register"}
+           Register
                 </button>
               </Form>
             </Formik>
           </div>
         </div>
       </div>
+    )}
+    
+      
     </>
   );
 };

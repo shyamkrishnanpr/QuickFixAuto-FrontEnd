@@ -191,11 +191,12 @@ export const verifyOtpForPasswordResetAsync = createAsyncThunk(
 
 export const resetPasswordAsync = createAsyncThunk(
   "userAuth/resetPassword",
-  async(newPassword,thunkAPI)=>{
+  async(data,thunkAPI)=>{
     try {
-      const response = await resetPasswordApi(newPassword)
       
+      const response = await resetPasswordApi(data)
       
+      return response
     } catch (error) {
       console.log(error)
     }
@@ -256,7 +257,31 @@ const userAuthSlice = createSlice({
       .addCase(otpVerificationAsync.rejected, (state, action) => {
         state.loading = false;
         state.isLoggedInUser = false;
-      });
+      })
+      .addCase(requestOtpForPasswordResetAsync.pending,(state,action)=>{
+        state.loading=true
+      })
+      .addCase(requestOtpForPasswordResetAsync.fulfilled,(state,action)=>{
+        state.loading=false
+      })
+      .addCase(requestOtpForPasswordResetAsync.rejected,(state,action)=>{
+        state.loading=false
+      })
+
+
+      .addCase(resetPasswordAsync.pending, (state) => {
+        state.loading=true
+        
+      })
+      .addCase(resetPasswordAsync.fulfilled, (state) => {
+        state.loading=false
+   
+      })
+      .addCase(resetPasswordAsync.rejected, (state, action) => {
+        state.loading=false
+      })
+
+
   },
 });
 

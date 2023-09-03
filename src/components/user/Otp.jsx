@@ -47,10 +47,11 @@ const Otp = () => {
         console.log(response, "at page otp");
 
         if (response?.payload?.success) {
+         
           navigate("/user/dashboard");
           
         } else {
-          console.log(response);
+          toast.error("enter a valid otp")
         }
       });
     }
@@ -72,6 +73,7 @@ const Otp = () => {
 
   return (
     <>
+    <ToastContainer />
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="flex w-full max-w-3xl">
           <div className="bg-gradient-to-tr from-black to-red-600 p-8 rounded-l-lg shadow-md w-1/2">

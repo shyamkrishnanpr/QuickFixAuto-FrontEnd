@@ -57,11 +57,11 @@ export const verifyOtpAndResetPasswordApi = async(data)=>{
   }
 }
 
-export const resetPasswordApi = async(newPassword)=>{
+export const resetPasswordApi = async(data)=>{
   try {
-    const response = await axios.post("/user/resetPassword",{
-      newPassword:newPassword
-    })
+    
+    const response = await axios.post("/user/resetPassword",data)
+    console.log(response.data,"in api")
     return response.data
   } catch (error) {
     console.log(error)

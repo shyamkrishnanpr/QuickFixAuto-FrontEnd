@@ -1,14 +1,20 @@
-import React from 'react'
+import React from 'react';
+import { css } from '@emotion/react';
+import { CircleLoader } from 'react-spinners';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 const LoadSpinner = () => {
   return (
-    <>
-      <div className="flex flex-col items-center justify-center h-screen">
-      <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
-      <p className="mt-4 text-gray-600">Loading...</p>
+    <div className="flex justify-center items-center h-screen">
+      <div className="text-center">
+        <CircleLoader css={override} size={100} color={'hsla(0, 77%, 51%, 1)'} />
+      </div>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default LoadSpinner
+export default LoadSpinner;

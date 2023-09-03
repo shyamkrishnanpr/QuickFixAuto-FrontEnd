@@ -27,7 +27,7 @@ const Login = () => {
   const handleLogin = async (values) => {
     try {
       dispatch(userLoginAsync(values)).then((response) => {
-        console.log("resonse in login page", response.payload.success);
+        
         if (response.payload.success) {
           navigate("/user/dashboard");
         }
@@ -49,7 +49,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex  items-center justify-center min-h-screen bg-gray-100">
         <div className="flex w-full max-w-3xl">
           <div className="bg-gradient-to-tr from-black to-red-600 p-8 rounded-l-lg shadow-md w-1/2">
             <h4 className="text-white text-center text-2xl font-bold  mt-16">

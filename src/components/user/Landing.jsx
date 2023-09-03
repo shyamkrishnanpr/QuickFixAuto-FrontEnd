@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { fetchVehicleDataApi } from "../../services/userAPI";
 
+
 const Landing = () => {
   const navigate = useNavigate();
   const [selectedLocation, setSelectedLocation] = useState("Calicut"); // Set Calicut as the default location
@@ -36,6 +37,7 @@ const Landing = () => {
       longitude: 76.2673,
     },
   ];
+ 
 
   useEffect(() => {
     const fetchVehicleData = async () => {
@@ -107,10 +109,16 @@ const Landing = () => {
     }
   };
 
+
   return (
     <>
-      <div className="flex justify-end ">
-        <div className="bg-gray-200 rounded-lg shadow-lg p-6 w-1/4  mr-12 mt-14">
+    
+
+     
+      <div className="flex justify-end  ">
+       
+     
+        <div className="bg-gray-200 rounded-lg shadow-lg p-6 w-1/4  mr-12 mt-14"  >
           <h1 className="text-2xl text-red-600 font-semibold mb-4">
             Search Service centers near you...
           </h1>
@@ -175,7 +183,8 @@ const Landing = () => {
             Search
           </button>
         </div>
-      </div>
+        </div>
+      
     </>
   );
 };
