@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { vendorLoginAsync } from "../../store/reducers/vendor/AuthSlice";
 import {Link} from 'react-router-dom'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
 
@@ -31,8 +33,10 @@ const Login = () => {
     try {
       dispatch(vendorLoginAsync(values)).then((response) => {
         console.log("resonse in login page", response);
-        if(response.payload.success){
+        if(response.payload?.success){
             navigate('/vendor/dashboard')
+        }else {
+          toast.error("Incorrect password or email")
         }
 
       });
@@ -43,6 +47,7 @@ const Login = () => {
 
   return (
     <>
+    <ToastContainer />
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="flex w-full max-w-3xl">
           <div className="bg-gradient-to-tr from-blue-950 to-blue-500 p-8 rounded-l-lg shadow-md w-1/2">

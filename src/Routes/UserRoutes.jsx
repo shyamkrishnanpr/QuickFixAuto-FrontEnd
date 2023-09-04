@@ -7,6 +7,7 @@ import DashBoardPage from '../pages/user/Dashboard/DashBoardPage'
 import LoginPage from '../pages/user/Login/LoginPage'
 import ProfilePage from '../pages/user/Profile/ProfilePage'
 import ServicePage from '../pages/user/services/ServicePage'
+import ServiceDetailPage from '../pages/user/services/ServiceDetailPage'
 import ForgotPasswordPage from '../pages/user/ForgotPassword/ForgotPasswordPage'
 import ResetPasswordPage from '../pages/user/ResetPassword/ResetPasswordPage'
 
@@ -19,6 +20,7 @@ const UserRoutes = () => {
         <Route path='/login' element={<UserVerification><LoginPage/></UserVerification>} />
         <Route path='/profile' element={<UserVerification><ProfilePage/></UserVerification>} />
         <Route path='/services' element={<ServicePage/>} />
+        <Route path='/serviceDetails/:serviceId' element={<ServiceDetailPage/>} />
         <Route path='/forgot-password' element={<ForgotPasswordPage/>}/>
         <Route path='/resetPassword/:email' element={<ResetPasswordPage/>}/>
 

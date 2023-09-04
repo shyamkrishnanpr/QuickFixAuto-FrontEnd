@@ -15,12 +15,12 @@ const AdminRoutes = () => {
             <Routes>
                 <Route path='/login' element={<AdminAuth><Login /></AdminAuth>  } />
                 <Route path='/' element={<AdminAuth><Dashboard /></AdminAuth>  } />
-                <Route path='/Category' element={<CategoryManagement /> } />
-                <Route path='/SubCategory' element={<SubCategoryManagement /> } />
-                <Route path='/Vehicles' element={<VehicleManagement /> } />
-                <Route path='/users' element={<UsersManagement /> } />
-                <Route path='/vendors' element={<VendorManagement /> } />
-                <Route path='/services' element={<ServiceManagement /> } />
+                <Route path='/Category' element={<AdminAuth><CategoryManagement /></AdminAuth> } />
+                <Route path='/SubCategory' element={<AdminAuth><SubCategoryManagement /></AdminAuth> } />
+                <Route path='/Vehicles' element={<AdminAuth><VehicleManagement /></AdminAuth> } />
+                <Route path='/users' element={<AdminAuth><UsersManagement /></AdminAuth> } />
+                <Route path='/vendors' element={<AdminAuth><VendorManagement /></AdminAuth> } />
+                <Route path='/services' element={<AdminAuth><ServiceManagement /></AdminAuth> } />
 
 
 

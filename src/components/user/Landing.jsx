@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { fetchVehicleDataApi } from "../../services/userAPI";
 
-
 const Landing = () => {
   const navigate = useNavigate();
   const [selectedLocation, setSelectedLocation] = useState("Calicut"); // Set Calicut as the default location
@@ -10,12 +9,14 @@ const Landing = () => {
     latitude: 11.2588,
     longitude: 75.7804,
     name: "Calicut",
+    vehicleId: "",
   });
   const [vehicles, setVehicles] = useState([]);
   const [brand, setBrand] = useState([]);
   const [filteredModels, setFilteredModels] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const locationOptions = [
     {
@@ -37,7 +38,6 @@ const Landing = () => {
       longitude: 76.2673,
     },
   ];
- 
 
   useEffect(() => {
     const fetchVehicleData = async () => {
@@ -51,12 +51,20 @@ const Landing = () => {
           ...new Set(vehicleData.map((vehicle) => vehicle.brand)),
         ];
         setBrand(uniqueBrands);
+
+        const selectedVehicleId =
+          vehicles.find((vehicle) => vehicle.model === selectedModel)?._id ||
+          "";
+        setLocationData((prevLocationData) => ({
+          ...prevLocationData,
+          vehicleId: selectedVehicleId,
+        }));
       } catch (error) {
         console.log(error);
       }
     };
     fetchVehicleData();
-  }, []);
+  }, [selectedModel]);
 
   const handleBrandChange = (e) => {
     const selectedBrand = e.target.value;
@@ -82,25 +90,29 @@ const Landing = () => {
       (location) => location.value === selectedValue
     );
 
-    const selectedVehicleId =
-      vehicles.find((vehicle) => vehicle.model === selectedModel)?._id || "";
-
     if (selectedLocationData) {
       setLocationData({
         latitude: selectedLocationData.latitude,
         longitude: selectedLocationData.longitude,
         name: selectedLocationData.label,
-        vehicleId:selectedVehicleId
       });
     }
+  };
+
+  const isFormValid = () => {
+    return selectedBrand !== "" && selectedModel !== "";
   };
 
   const handleLocationSelection = () => {
     try {
       if (locationData) {
-        navigate("/user/services", {
-          state: { selectedLocation: locationData },
-        });
+        if (isFormValid()) {
+          navigate("/user/services", {
+            state: { selectedLocation: locationData },
+          });
+        } else {
+          setShowError(true);
+        }
       } else {
         console.error("Please select a location.");
       }
@@ -109,16 +121,10 @@ const Landing = () => {
     }
   };
 
-
   return (
     <>
-    
-
-     
       <div className="flex justify-end  ">
-       
-     
-        <div className="bg-gray-200 rounded-lg shadow-lg p-6 w-1/4  mr-12 mt-14"  >
+        <div className="bg-gray-200 rounded-lg shadow-lg p-6 w-1/4  mr-12 mt-14">
           <h1 className="text-2xl text-red-600 font-semibold mb-4">
             Search Service centers near you...
           </h1>
@@ -175,6 +181,11 @@ const Landing = () => {
               ))}
             </select>
           </div>
+          {showError && (
+            <p className="text-red-600 text-sm mb-2">
+              Please select both brand and model ....
+            </p>
+          )}
 
           <button
             className="bg-blue-500 hover.bg-blue-700 text-white font-semibold py-2 px-4 rounded-full"
@@ -183,8 +194,7 @@ const Landing = () => {
             Search
           </button>
         </div>
-        </div>
-      
+      </div>
     </>
   );
 };

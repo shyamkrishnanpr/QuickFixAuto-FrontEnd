@@ -137,7 +137,7 @@ const Category = () => {
       </div>
 
       <div className=" flex flex-col items-center justify-center h-full">
-        {/* Modal */}
+      
         {isModalOpen && (
           <div
             className={`fixed inset-0 flex items-center justify-center z-10 ${

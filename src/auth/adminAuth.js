@@ -10,10 +10,8 @@ export default function adminAuth({children}){
     console.log("token in auth ",adminToken)
 
     useEffect(() => {
-        if (adminToken!==null) {
-          navigate('/admin');
-        }else{
-            navigate('/admin/login')
+        if (adminToken==null) {
+          navigate('/admin/login');
         }
     },[adminToken,navigate])
 

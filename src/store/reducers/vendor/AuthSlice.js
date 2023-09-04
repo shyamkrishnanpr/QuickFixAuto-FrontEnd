@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { vendorSignUpApi, vendorOtpApi ,vendorLoginApi,vendorResendOtpApi } from "../../../services/vendorAPI";
+import {
+  vendorSignUpApi,
+  vendorOtpApi,
+  vendorLoginApi,
+  vendorResendOtpApi,
+} from "../../../services/vendorAPI";
 
 const vendor = JSON.parse(localStorage.getItem("vendorToken"));
 
@@ -53,7 +58,7 @@ export const otpVerificationAsync = createAsyncThunk(
 
       if (response.success) {
         localStorage.removeItem("otpToken");
-         
+
         const expirationTimeInMinutes = 60;
         const expirationTime =
           new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
@@ -63,7 +68,7 @@ export const otpVerificationAsync = createAsyncThunk(
           JSON.stringify({
             token: response.token,
             vendorId: response._id,
-            expiresAt:expirationTime
+            expiresAt: expirationTime,
           })
         );
         return response;
@@ -74,66 +79,62 @@ export const otpVerificationAsync = createAsyncThunk(
   }
 );
 
-
 export const vendorResendOtpAsync = createAsyncThunk(
   "vendorAuth/resendOtp",
-  async(thunkAPI)=>{
+  async (thunkAPI) => {
     try {
-      const otptoken = localStorage.getItem("otpToken")
-      const otpObj = JSON.parse(otptoken)
-      const otpToken = otpObj.token
-      const otpData = {otpToken}
-      const response = await vendorResendOtpApi(otpData)
+      const otptoken = localStorage.getItem("otpToken");
+      const otpObj = JSON.parse(otptoken);
+      const otpToken = otpObj.token;
+      const otpData = { otpToken };
+      const response = await vendorResendOtpApi(otpData);
       const expirationTimeInMinutes = 1;
       const expirationTime =
         new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
 
-        localStorage.removeItem("otpToken")
-        localStorage.setItem(
-          "otpToken",
-          JSON.stringify({
-            token: response.token,
-            expiresAt: expirationTime,
-          })
-        );
-      
-    } catch (error) {
-      console.log(error)
-    }
-  }
-)
-
-
-
-
-export const vendorLoginAsync = createAsyncThunk(
-  "vendorAuth/login",
-  async (vendor, thunkAPI) => {
-    try {
-      const response = await vendorLoginApi(vendor);
-      console.log("at login ",response)
-      const expirationTimeInMinutes = 60;
-      const expirationTime =
-        new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
-
-        localStorage.setItem(
-          "vendorToken",
-          JSON.stringify({
-            token: response.token,
-            vendorId: response._id,
-            expiresAt:expirationTime
-          })
-        );
-          return response
+      localStorage.removeItem("otpToken");
+      localStorage.setItem(
+        "otpToken",
+        JSON.stringify({
+          token: response.token,
+          expiresAt: expirationTime,
+        })
+      );
     } catch (error) {
       console.log(error);
     }
   }
 );
 
-const initialState = vendor && vendor.vendorId
-  ? { isLoggedInVendor: true, loading: false,vendorId: vendor.vendorId }
-  : { isLoggedInVendor: false, vendorId: null, loading: false };
+export const vendorLoginAsync = createAsyncThunk(
+  "vendorAuth/login",
+  async (vendor, thunkAPI) => {
+    try {
+      const response = await vendorLoginApi(vendor);
+      console.log("at login ", response);
+      const expirationTimeInMinutes = 60;
+      const expirationTime =
+        new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
+
+      localStorage.setItem(
+        "vendorToken",
+        JSON.stringify({
+          token: response.token,
+          vendorId: response._id,
+          expiresAt: expirationTime,
+        })
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+const initialState =
+  vendor && vendor.vendorId
+    ? { isLoggedInVendor: true, loading: false, vendorId: vendor.vendorId }
+    : { isLoggedInVendor: false, vendorId: null, loading: false };
 
 const vendorAuthSlice = createSlice({
   name: "vendorAuth",
@@ -144,7 +145,6 @@ const vendorAuthSlice = createSlice({
       state.isLoggedInVendor = false;
       state.vendorId = null;
       state.loading = false;
-      
     },
   },
   extraReducers: (builder) => {
@@ -167,26 +167,23 @@ const vendorAuthSlice = createSlice({
         state.loading = false;
         state.isLoggedInVendor = true;
         state.vendorId = action.payload._id;
-       
-
       })
       .addCase(otpVerificationAsync.rejected, (state, action) => {
         state.loading = false;
         state.isLoggedInVendor = false;
       })
-      .addCase(vendorLoginAsync.pending,(state,action)=>{
-        state.loading = true
+      .addCase(vendorLoginAsync.pending, (state, action) => {
+        state.loading = true;
       })
-      .addCase(vendorLoginAsync.fulfilled,(state,action)=>{
-        state.loading = false
-        state.isLoggedInVendor = true
-        state.vendorId = action.payload._id;
+      .addCase(vendorLoginAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isLoggedInVendor = true;
+       
       })
-      .addCase(vendorLoginAsync.rejected,(state,action)=>{
+      .addCase(vendorLoginAsync.rejected, (state, action) => {
         state.loading = false;
         state.isLoggedInVendor = false;
-
-      })
+      });
   },
 });
 

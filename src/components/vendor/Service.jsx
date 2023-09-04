@@ -73,9 +73,9 @@ const Service = () => {
                   className="bg-white  rounded-lg border border-solid border-gray-300 shadow-lg p-4 mb-4"
                 >
                   <div className="flex flex-col rounded-md bg-blue-200   md:flex-row">
-                    <div className="md:w-2/12 rounded-lg bg-white border border-solid border-gray-300 p-4">
+                    <div className="md:w-4/12 rounded-lg bg-white border border-solid border-gray-300 p-4">
                       <img
-                        src={`http://localhost:3000/vehicleImages/397e9daa-57cf-4f05-8107-6827f3c994c11691581290588.png`} // Replace with your service image URL
+                        src={`http://localhost:3000/vehicleImages/${service?.vehicleId?.image}`} // Replace with your service image URL
                         alt="Service"
                         className="w-full h-full md:h-42 rounded-md object-cover"
                       />
@@ -91,8 +91,8 @@ const Service = () => {
                         Subcategory: {service.subCategoryId.subCategory}
                       </p>
                       <p className="text-gray-600 mb-2">
-                        Vehicle: {service.vehicleId.brand}{" "}
-                        {service.vehicleId.model}
+                        Vehicle: {service?.vehicleId?.brand}{" "}
+                        {service?.vehicleId?.model}
                       </p>
                       <p className="text-gray-600 mb-2">
                         Price: {service.price}
