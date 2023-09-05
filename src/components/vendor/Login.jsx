@@ -1,44 +1,35 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { vendorLoginAsync } from "../../store/reducers/vendor/AuthSlice";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-
-   
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { loading } = useSelector((state) => state.vendorAuth);
-  
-  console.log("at logindndnd",loading)
-
-   
+  const { loading,errorMessage } = useSelector((state) => state.vendorAuth);
+  console.log("at logindndnd", errorMessage);
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-        .email('This is not a valid email.')
-        .required('Enter a valid email address'),
+      .email("This is not a valid email.")
+      .required("Enter a valid email address"),
     password: Yup.string()
-        .min(6, 'The password must be at least 6 characters.')
-        .max(40, 'The password must be at most 40 characters.')
-        .required('Enter your password'),
-});
+      .min(6, "The password must be at least 6 characters.")
+      .max(40, "The password must be at most 40 characters.")
+      .required("Enter your password"),
+  });
 
   const handleLogin = async (values) => {
     try {
       dispatch(vendorLoginAsync(values)).then((response) => {
         console.log("resonse in login page", response);
-        if(response.payload?.success){
-            navigate('/vendor/dashboard')
-        }else {
-          toast.error("Incorrect password or email")
+        if (response.payload?.success) {
+          navigate("/vendor/dashboard");
         }
-
       });
     } catch (error) {
       console.log(error);
@@ -47,8 +38,10 @@ const Login = () => {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
+    
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
+  
         <div className="flex w-full max-w-3xl">
           <div className="bg-gradient-to-tr from-blue-950 to-blue-500 p-8 rounded-l-lg shadow-md w-1/2">
             <h4 className="text-white text-center text-2xl font-bold  mt-16">
@@ -56,6 +49,9 @@ const Login = () => {
             </h4>
             <br />
             <p className="text-white text-sm text-center mb-4">
+            {errorMessage && (
+  <div className="text-red-500 text-lg mt-2">{errorMessage}</div>
+)}
               Join as a vendor and expand your reach in the automotive service
               industry. <br />
               Reach more customers and manage bookings efficiently.
@@ -64,9 +60,12 @@ const Login = () => {
 
             <p className="text-black text-center mb-4">
               Don't have an account.? <br />
-              <Link to="/vendor/register" className="block text-white p-2 rounded">
-              Register here..
-          </Link>
+              <Link
+                to="/vendor/register"
+                className="block text-white p-2 rounded"
+              >
+                Register here..
+              </Link>
             </p>
           </div>
           <div className="bg-white p-8 rounded-r-lg shadow-md flex-1">

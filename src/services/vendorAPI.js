@@ -31,15 +31,16 @@ export const vendorResendOtpApi = async (values) => {
 export const vendorLoginApi = async (values) => {
   try {
     const response = await axios.post("/vendor/login", values);
+    console.log("at api",response)
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("axx",error);
   }
 };
 
 export const fetchVendorDataApi = async (vendorId) => {
   try {
-    const response = await axios.get(`/vendor/vendorInfo/${vendorId}`);
+    const response = await axios.get(`/vendor/vendorInfo`);
     console.log("response in api ", response);
     return response.data;
   } catch (error) {

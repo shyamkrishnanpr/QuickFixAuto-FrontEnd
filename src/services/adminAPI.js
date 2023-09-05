@@ -1,4 +1,4 @@
-import axios from "../Axios/axios";
+import axios from "../Axios/axiosAdmin";
 
 export const adminLoginApi = async(email,password)=>{
     try {

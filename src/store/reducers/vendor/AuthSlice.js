@@ -1,4 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+
+
 import {
   vendorSignUpApi,
   vendorOtpApi,
@@ -111,7 +114,10 @@ export const vendorLoginAsync = createAsyncThunk(
   async (vendor, thunkAPI) => {
     try {
       const response = await vendorLoginApi(vendor);
-      console.log("at login ", response);
+      if(!response?.success){
+        thunkAPI.dispatch(setErrorMessage("Vendor is blocked..."))
+        
+      }
       const expirationTimeInMinutes = 60;
       const expirationTime =
         new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
@@ -133,7 +139,7 @@ export const vendorLoginAsync = createAsyncThunk(
 
 const initialState =
   vendor && vendor.vendorId
-    ? { isLoggedInVendor: true, loading: false, vendorId: vendor.vendorId }
+    ? { isLoggedInVendor: true, loading: false, vendorId: vendor.vendorId,errorMessage: null }
     : { isLoggedInVendor: false, vendorId: null, loading: false };
 
 const vendorAuthSlice = createSlice({
@@ -146,6 +152,9 @@ const vendorAuthSlice = createSlice({
       state.vendorId = null;
       state.loading = false;
     },
+    setErrorMessage:(state,action)=>{
+      state.errorMessage=action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -178,14 +187,16 @@ const vendorAuthSlice = createSlice({
       .addCase(vendorLoginAsync.fulfilled, (state, action) => {
         state.loading = false;
         state.isLoggedInVendor = true;
+        state.errorMessage=null
        
       })
       .addCase(vendorLoginAsync.rejected, (state, action) => {
         state.loading = false;
         state.isLoggedInVendor = false;
+        state.errorMessage = action.error.message;
       });
   },
 });
 
-export const { logout } = vendorAuthSlice.actions;
+export const { logout,setErrorMessage } = vendorAuthSlice.actions;
 export default vendorAuthSlice.reducer;

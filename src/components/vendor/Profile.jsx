@@ -40,7 +40,7 @@ const Profile = () => {
         console.log("ata profile data is ", vendorInfo);
 
         if (isEditMode) {
-          // In edit mode, set the structure of editedVendorData
+        
           setEditedVendorData({
             fullName: vendorInfo.fullName,
             centerName: vendorInfo.centerName,
@@ -53,7 +53,7 @@ const Profile = () => {
             },
           });
         } else {
-          // In view mode, set the structure of both vendorData and editedVendorData
+          
           setVendorData(vendorInfo);
           setEditedVendorData(vendorInfo);
         }

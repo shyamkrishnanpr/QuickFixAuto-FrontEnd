@@ -151,7 +151,7 @@ export const requestOtpForPasswordResetAsync = createAsyncThunk(
         })
       );
       return response;
-    } catch (error) {
+    } catch (error){
       console.log("error in requestOtpForPasswordResetAsync", error);
       throw error;
     }
