@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import axios from "../Axios/axios";
 
 export const userSignupApi = async (values) => {
@@ -5,7 +6,7 @@ export const userSignupApi = async (values) => {
     const response = await axios.post("/user/signUp", values);
     return response.data;
   } catch (error) {
-    console.log("error in signupApi", error);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -34,7 +35,7 @@ export const userLoginApi = async (values) => {
     const response = await axios.post("/user/login", values);
     return response.data;
   } catch (error) {
-    console.log("error in loginApi", error);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -44,7 +45,7 @@ export const forgotOtpApi = async(email)=>{
     const response = await axios.post("/user/forgotPassword",{email})
     return response.data
   } catch (error) {
-    console.log(error)
+    toast.error(error.response.data.message)
   }
 }
 
@@ -53,7 +54,7 @@ export const verifyOtpAndResetPasswordApi = async(data)=>{
     const response = await axios.post("/user/verifyOtpForget",data);
     return response.data
   } catch (error) {
-    console.log(error)
+    toast.error(error.response.data.message)
   }
 }
 

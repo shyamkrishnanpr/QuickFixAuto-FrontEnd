@@ -37,19 +37,19 @@ const RegisterForm = () => {
       .required("Enter your mobile number"),
   });
 
-  const handleSubmit = async (values) => {
-    try {
-      dispatch(vendorSignUpAsync(values)).then((response) => {
+  const handleSubmit = (values) => {
+    dispatch(vendorSignUpAsync(values))
+      .then((response) => {
         if (response?.payload?.success) {
           navigate("/vendor/otp");
-        }else {
-          toast.error("Vendor already exists.!");
-        }
+        } 
+      })
+      .catch((error) => {
+        console.log(error);
+       
       });
-    } catch (error) {
-      console.log(error);
-    }
   };
+  
 
   return (
     <>

@@ -11,8 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading,errorMessage } = useSelector((state) => state.vendorAuth);
-  console.log("at logindndnd", errorMessage);
+  const { loading } = useSelector((state) => state.vendorAuth);
+  
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("This is not a valid email.")
@@ -23,17 +23,17 @@ const Login = () => {
       .required("Enter your password"),
   });
 
-  const handleLogin = async (values) => {
-    try {
+  const handleLogin =  (values) => {
+
       dispatch(vendorLoginAsync(values)).then((response) => {
         console.log("resonse in login page", response);
         if (response.payload?.success) {
           navigate("/vendor/dashboard");
         }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+      }).catch((error)=>{
+        console.log(error)
+      })
+   
   };
 
   return (
@@ -49,9 +49,7 @@ const Login = () => {
             </h4>
             <br />
             <p className="text-white text-sm text-center mb-4">
-            {errorMessage && (
-  <div className="text-red-500 text-lg mt-2">{errorMessage}</div>
-)}
+    
               Join as a vendor and expand your reach in the automotive service
               industry. <br />
               Reach more customers and manage bookings efficiently.

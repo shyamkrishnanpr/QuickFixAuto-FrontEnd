@@ -114,10 +114,7 @@ export const vendorLoginAsync = createAsyncThunk(
   async (vendor, thunkAPI) => {
     try {
       const response = await vendorLoginApi(vendor);
-      if(!response?.success){
-        thunkAPI.dispatch(setErrorMessage("Vendor is blocked..."))
-        
-      }
+      
       const expirationTimeInMinutes = 60;
       const expirationTime =
         new Date().getTime() + expirationTimeInMinutes * 60 * 1000;
@@ -132,7 +129,7 @@ export const vendorLoginAsync = createAsyncThunk(
       );
       return response;
     } catch (error) {
-      console.log(error);
+      console.log("at thunk",error);
     }
   }
 );

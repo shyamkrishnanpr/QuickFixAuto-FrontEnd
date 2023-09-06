@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import axios from "../Axios/axios";
 
 export const vendorSignUpApi = async (values) => {
@@ -7,6 +8,7 @@ export const vendorSignUpApi = async (values) => {
     return response.data;
   } catch (error) {
     console.log("error in signin", error);
+    toast.error(error.response.data.message);
   }
 };
 
@@ -34,7 +36,7 @@ export const vendorLoginApi = async (values) => {
     console.log("at api",response)
     return response.data;
   } catch (error) {
-    console.log("axx",error);
+    toast.error(error.response.data.message);
   }
 };
 

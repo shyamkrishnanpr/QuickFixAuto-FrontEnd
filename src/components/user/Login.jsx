@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading, resetPasswordEmail, isOtpSent, isOtpVerified } = useSelector(
+  const { loading } = useSelector(
     (state) => state.userAuth
   );
 
@@ -25,19 +25,18 @@ const Login = () => {
       .required("Enter your password"),
   });
 
-  const handleLogin = async (values) => {
-    try {
+  const handleLogin =  (values) => {
+
       dispatch(userLoginAsync(values)).then((response) => {
         
         if (response.payload?.success) {
           navigate("/user/dashboard");
-        }else {
-          toast.error("Incorrect password or email")
         }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+    
   };
 
   const handleForgotPasswordClick = async () => {
