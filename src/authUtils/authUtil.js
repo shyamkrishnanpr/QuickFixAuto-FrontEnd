@@ -9,7 +9,7 @@ function getUserType() {
     }
   
    
-    // return 'user';
+    
   }
   
   export { getUserType };

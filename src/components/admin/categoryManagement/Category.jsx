@@ -18,6 +18,7 @@ const Category = () => {
   const [isEditModalOpen,setIsEditModalOpen] = useState(false)
   const [editCategory,setEditCategory] = useState("")
   const [editCategoryId,setEditCategoryId] = useState(null)
+  const [error, setError] = useState('');
 
   
   useEffect(() => {
@@ -25,7 +26,15 @@ const Category = () => {
   }, [dispatch]);
 
   const handleCategorySubmit = async () => {
-    if (newCategory.trim() !== "") {
+   
+      if(newCategory.trim()==""){
+        setError("Field cannot be empty")
+        return
+      }
+    if(categories.some((category)=>category.category==newCategory)){
+      setError("Category already exists...")
+      return;
+    }
       try {
         dispatch(addCategoriesAsync(newCategory));
         console.log("category added", newCategory);
@@ -35,7 +44,7 @@ const Category = () => {
       } catch (error) {
         console.log(error);
       }
-    }
+   
   };
 
   const handleDeleteCategory = async (id) => {
@@ -148,12 +157,16 @@ const Category = () => {
             <div className="modal z-20 p-4 rounded bg-white shadow-lg w-96">
               <div className="modal-content">
                 <h3 className="text-lg font-semibold mb-4">Add Category</h3>
+                
                 <input
                   type="text"
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
                   className="border rounded py-2 px-3 w-full mb-4"
                 />
+                 {error && (
+                <p className="text-red-500 text-sm mb-2">{error}</p>
+              )}
                 <div className="flex justify-end">
                   <button
                     className="px-4 py-2 mr-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -163,7 +176,10 @@ const Category = () => {
                   </button>
                   <button
                     className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={() =>{ setIsModalOpen(false);
+                      setNewCategory("")
+                      setError('');}}
+                    
                   >
                     Cancel
                   </button>

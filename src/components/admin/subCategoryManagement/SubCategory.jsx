@@ -20,6 +20,7 @@ const SubCategory = () => {
   const [editSubCategory, setEditSubCategory] = useState("");
   const [editSubCategoryId, setEditSubCategoryId] = useState(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const [error,setError] = useState("")
 
   useEffect(() => {
     dispatch(fetchSubCategoriesAsync());
@@ -27,7 +28,19 @@ const SubCategory = () => {
   }, [dispatch]);
 
   const handleSubCategorySubmit = async () => {
-    if (newSubcategory.trim() !== "" && selectedCategoryId.trim() !== "") {
+   
+         if(newSubcategory.trim()==""){
+          setError("Field cannot be empty")
+          return
+         }
+         if(selectedCategoryId.trim()==""){
+          setError("Select a category")
+          return
+         }
+        if(subCategories.some((subCategory)=>subCategory.subCategory==newSubcategory.trim())){
+          setError("SubCategory already exists...")
+      return;
+        }
       try {
         dispatch(
           addSubCategoriesAsync({
@@ -43,7 +56,7 @@ const SubCategory = () => {
       } catch (error) {
         console.log(error);
       }
-    }
+    
   };
 
   const handleDeleteSubCategory = async (id) => {
@@ -182,7 +195,8 @@ const SubCategory = () => {
                     className="border rounded py-2 px-3 w-full mb-4"
                   />
                 </label>
-
+              
+               
                 <select
                   value={selectedCategoryId}
                   onChange={(e) => setSelectedCategoryId(e.target.value)}
@@ -195,6 +209,10 @@ const SubCategory = () => {
                     </option>
                   ))}
                 </select>
+                {error && (
+                <p className="text-red-500 text-sm mb-2">{error}</p>
+              )}
+               
                 <div className="flex justify-end">
                   <button
                     className="px-4 py-2 mr-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -204,7 +222,10 @@ const SubCategory = () => {
                   </button>
                   <button
                     className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={() =>{ setIsModalOpen(false)
+                      setNewSubcategory("")
+                      setSelectedCategoryId("")
+                    setError("")}}
                   >
                     Cancel
                   </button>
