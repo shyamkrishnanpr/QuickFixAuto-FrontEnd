@@ -33,6 +33,9 @@ const ServiceCard = ({ service, onVerifyClick }) => {
               <td className="font-semibold " style={{ width: "110px" }}>Details</td>:
               <td> {service.description}</td>
             </tr>
+           
+           
+
             
           </tbody>
         </table>

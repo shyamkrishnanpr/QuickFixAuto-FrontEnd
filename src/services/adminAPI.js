@@ -198,5 +198,15 @@ export const verifyServiceApi = async(serviceId)=>{
     }
 }
 
+export const fetchAllServiceApi = async(currentPge)=>{
+    try {
+        const response =await axios.get(`/admin/getAllService?page=${currentPge}`)
+        console.log(response.data,"at axios")
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
