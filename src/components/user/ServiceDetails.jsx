@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { fetchServiceDetailApi } from "../../services/userAPI";
+import { Link } from "react-router-dom";
 
 const ServiceDetails = () => {
   const { serviceId } = useParams();
@@ -35,13 +36,21 @@ const ServiceDetails = () => {
               <p>Vendor Details: {place.vendorId.centerName}</p>
               <p>Details: {place.description}</p>
               <p>Place: {place.price}</p>
-            </div>
-          ))}
-          <div className="text-center">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+
+
+              <div className="text-center">
+            <Link
+              to={`/user/booking/${place._id}`}
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            >
               Book Now
-            </button>
+            </Link>
           </div>
+            </div>
+
+            
+          ))}
+          
         </div>
 
         {serviceDetails?.map((place, index) => (
@@ -50,8 +59,9 @@ const ServiceDetails = () => {
               src={`http://localhost:3000/vehicleImages/${place.vehicleId.image}`}
               className="mx-auto "
             />
-            <h2 className="text-xl font-semibold">{place.vehicleId.brand} {place.vehicleId.model}</h2>
-            
+            <h2 className="text-xl font-semibold">
+              {place.vehicleId.brand} {place.vehicleId.model}
+            </h2>
           </div>
         ))}
       </div>

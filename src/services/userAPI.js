@@ -87,6 +87,7 @@ export const fetchServicesApi = async (userLocation) => {
 export const fetchServiceDetailApi = async(serviceId)=>{
   try {
     const response = await axios.get(`/user/serviceDetails/${serviceId}`)
+  
     return response.data
   } catch (error) {
     console.log(error)

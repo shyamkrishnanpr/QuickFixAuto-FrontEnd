@@ -10,6 +10,7 @@ import ServicePage from '../pages/user/services/ServicePage'
 import ServiceDetailPage from '../pages/user/services/ServiceDetailPage'
 import ForgotPasswordPage from '../pages/user/ForgotPassword/ForgotPasswordPage'
 import ResetPasswordPage from '../pages/user/ResetPassword/ResetPasswordPage'
+import BookingPage from '../pages/user/Booking/BookingPage'
 
 const UserRoutes = () => {
   return (
@@ -19,10 +20,14 @@ const UserRoutes = () => {
         <Route path='/dashboard' element={<DashBoardPage/>} />
         <Route path='/login' element={<UserVerification><LoginPage/></UserVerification>} />
         <Route path='/profile' element={<UserVerification><ProfilePage/></UserVerification>} />
-        <Route path='/services' element={<ServicePage/>} />
-        <Route path='/serviceDetails/:serviceId' element={<ServiceDetailPage/>} />
         <Route path='/forgot-password' element={<ForgotPasswordPage/>}/>
         <Route path='/resetPassword/:email' element={<ResetPasswordPage/>}/>
+
+        <Route path='/services' element={<ServicePage/>} />
+        <Route path='/serviceDetails/:serviceId' element={<ServiceDetailPage/>} />
+        <Route path='/booking/:serviceId' element={<BookingPage/>}/>
+        
+       
 
 
       
