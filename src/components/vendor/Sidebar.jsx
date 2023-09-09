@@ -21,6 +21,11 @@ const Sidebar = () => {
             SERVICE
           </Link>
         </li>
+        <li>
+        <Link to="/vendor/availability" className="block  text-white hover:bg-blue-900 p-2 rounded">
+            AVAILABILITY
+          </Link>
+        </li>
         
        
         

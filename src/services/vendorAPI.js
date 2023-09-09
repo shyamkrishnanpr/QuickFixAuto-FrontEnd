@@ -114,3 +114,15 @@ export const fetchServiceApi = async(page,perPage)=>{
     console.log(error)
   }
 }
+
+
+export const addAvailableSlotsApi = async(data)=>{
+  try {
+    console.log(data,"in api")
+    const response = await axios.post(`/vendor/addSlots`,data)
+    console.log(response.data,"at api res")
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}

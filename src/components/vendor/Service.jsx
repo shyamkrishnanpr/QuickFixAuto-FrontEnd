@@ -34,7 +34,7 @@ const Service = () => {
       console.log(error);
     }
   };
-  const totalPage = Math.ceil(services.length / perPage);
+  const totalPage = Math.ceil(services?.length / perPage);
   const nextPage = () => {
     if (currentPage <= totalPage) {
       setCurrentPage(currentPage + 1);
@@ -67,7 +67,7 @@ const Service = () => {
             </button>
              
             <div className="  p-6">
-              {services.map((service) => (
+              {services?.map((service) => (
                 <div
                   key={service._id}
                   className="bg-white  rounded-lg border border-solid border-gray-300 shadow-lg p-4 mb-4"
