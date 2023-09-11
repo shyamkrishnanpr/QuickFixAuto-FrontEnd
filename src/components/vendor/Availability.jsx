@@ -67,6 +67,8 @@ const Availability = () => {
   const handleSubmit = async()=>{
     try {
         const response = await addAvailableSlotsApi(slotsWithDates)
+        setSuccessMessage('Slots added successfully.');
+        setErrorMessage('');
     } catch (error) {
         console.log(error)
     }
@@ -74,7 +76,7 @@ const Availability = () => {
 
   return (
     <>
-    <div className="flex">
+    
     <div className="max-w-md mx-auto p-4 ">
       <h2 className="text-2xl font-semibold mb-4">Add Slots for a Date</h2>
       <div className="mb-4">
@@ -164,7 +166,7 @@ const Availability = () => {
       </button>
       </div>
 
-    </div>
+    
     </>
   );
 };
