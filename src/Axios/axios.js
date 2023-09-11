@@ -7,13 +7,13 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     (config)=>{
-        const userType = getUserType()
+        const userTypeObject = getUserType()
 
-        const token = localStorage.getItem(`${userType}Token`)
+       if(userTypeObject&&userTypeObject.token){
+        config.headers.Authorization = `Bearer ${userTypeObject.token}`
+       }
 
-        if(token){
-            config.headers.Authorization = `Bearer ${token}`
-        }
+  
         return config;
     },
     (error)=>{
