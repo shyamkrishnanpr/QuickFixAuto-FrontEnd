@@ -18,9 +18,9 @@ const Navbar = () => {
   return (
     <div>
         <div>
-        <nav className="bg-gray-400 p-5">
+        <nav className="bg-gray-300 p-5">
           <div className="flex items-center justify-between">
-            <Link to='/user/dashboard' className="text-red-700 font-bold text-xl">QuickFix Autos </Link>
+            <Link to='/user/dashboard' className="text-red-700 font-bold text-2xl">QuickFix Autos </Link>
             <ul className="flex space-x-4">
               <li>
                 <a href="#" className="text-white hover:text-blue-300">

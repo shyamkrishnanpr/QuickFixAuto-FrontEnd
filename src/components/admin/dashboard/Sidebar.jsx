@@ -44,6 +44,11 @@ const Sidebar = () => {
             SERVICES
           </Link>
         </li>
+        <li>
+        <Link to="/admin/banners" className="block  text-white hover:bg-gray-600 p-2 rounded">
+            BANNER
+          </Link>
+        </li>
         
      
       </ul>

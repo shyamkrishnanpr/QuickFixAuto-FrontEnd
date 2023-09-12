@@ -9,6 +9,7 @@ import UsersManagement from '../pages/admin/users/UsersManagement'
 import VendorManagement from '../pages/admin/vendors/VendorManagement'
 import ServiceManagement from '../pages/admin/services/ServiceManagement'
 import ServiceManagementAll from '../pages/admin/services/ServiceManagementAll'
+import BannerManagement from '../pages/admin/banner/BannerManagement'
 import AdminAuth from '../auth/adminAuth'
 const AdminRoutes = () => {
   return (
@@ -22,7 +23,9 @@ const AdminRoutes = () => {
                 <Route path='/users' element={<AdminAuth><UsersManagement /></AdminAuth> } />
                 <Route path='/vendors' element={<AdminAuth><VendorManagement /></AdminAuth> } />
                 <Route path='/services' element={<AdminAuth><ServiceManagement /></AdminAuth> } />
-                <Route path='/servicesList' element={<ServiceManagementAll/> } />
+                <Route path='/servicesList' element={<AdminAuth><ServiceManagementAll/></AdminAuth> } />
+                <Route path='/banners' element={<AdminAuth><BannerManagement /></AdminAuth> } />
+               
 
 
 

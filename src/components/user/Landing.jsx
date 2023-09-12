@@ -4,7 +4,7 @@ import { fetchVehicleDataApi } from "../../services/userAPI";
 
 const Landing = () => {
   const navigate = useNavigate();
-  const [selectedLocation, setSelectedLocation] = useState("Calicut"); // Set Calicut as the default location
+  const [selectedLocation, setSelectedLocation] = useState("Calicut"); 
   const [locationData, setLocationData] = useState({
     latitude: 11.2588,
     longitude: 75.7804,
@@ -124,7 +124,7 @@ const Landing = () => {
   return (
     <>
       <div className="flex justify-end  ">
-        <div className="bg-gray-200 rounded-lg shadow-lg p-6 w-1/4  mr-12 mt-14">
+        <div className="bg-gray-300 rounded-3xl shadow-lg p-6 w-1/4  mr-12 mt-14">
           <h1 className="text-2xl text-red-600 font-semibold mb-4">
             Search Service centers near you...
           </h1>
@@ -171,7 +171,7 @@ const Landing = () => {
             <select
               className="w-full p-2 border rounded-lg"
               value={selectedModel}
-              onChange={handleModelChange} // Add a function to handle model selection
+              onChange={handleModelChange} 
             >
               <option value="">Select Model</option>
               {filteredModels.map((model) => (
@@ -188,7 +188,7 @@ const Landing = () => {
           )}
 
           <button
-            className="bg-blue-500 hover.bg-blue-700 text-white font-semibold py-2 px-4 rounded-full"
+            className="bg-red-500 hover.bg-blue-700 text-white font-semibold py-2 px-4 rounded-full"
             onClick={handleLocationSelection}
           >
             Search

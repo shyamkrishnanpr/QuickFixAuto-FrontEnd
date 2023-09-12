@@ -208,5 +208,28 @@ export const fetchAllServiceApi = async(currentPge)=>{
     }
 }
 
+export const addBannerApi = async(bannerData)=>{
+    try {
+      
+        const response = await axios.post(`/admin/addBanner`,bannerData,{headers: {
+            'Content-Type': 'multipart/form-data',}
+        })
+        
+        return response.data
+    
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const fetchBannerApi = async()=>{
+    try {
+        const response = await axios.get(`/admin/getBanner`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
