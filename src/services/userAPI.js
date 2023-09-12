@@ -111,3 +111,24 @@ export const fetchVehicleDataApi = async()=>{
         console.log(error)
     }
 }
+
+
+export const fetchBannerApi = async()=>{
+  try {
+      const response = await axios.get(`/user/getBanner`)
+      console.log(response,"at api")
+      return response.data
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+export const submitBookingDataApi = async(bookingData)=>{
+  try {
+    const response = await axios.post(`/user/booking`,bookingData)
+    return response.data
+
+  } catch (error) {
+    console.log(error)
+  }
+}

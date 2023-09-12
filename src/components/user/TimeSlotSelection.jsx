@@ -26,7 +26,7 @@ const TimeSlotSelection = ({ onTimeSlotSelect, onContinue }) => {
   return (
     <>
       <ToastContainer />
-      <div className="w-8/12 mt-3 p-2 flex flex-col justify-between">
+      <div className="w-full mt-3 p-2 flex flex-col justify-between">
         <div>
           <h3 className="text-lg font-semibold mb-4">Pick Time Slot:</h3>
           <div className="grid grid-cols-2 gap-4">

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { fetchServiceDetailsAsync } from "../../store/reducers/user/UserServiceBookingSlice";
 import { selectService } from "../../store/reducers/user/UserServiceBookingSlice";
+import { submitBookingDataApi } from "../../services/userAPI";
+
 import DateSelection from "./DateSelection";
 import TimeSlotSelection from "./TimeSlotSelection";
 import AddressSelection from "./AddressSelection";
@@ -17,13 +19,14 @@ const Booking = () => {
   const [step, setStep] = useState(1);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { serviceId } = useParams();
   console.log(serviceId, "in page");
   useEffect(() => {
     dispatch(fetchServiceDetailsAsync(serviceId));
   }, []);
 
-  console.log(selectedService, "at abcde");
+  console.log(selectedService[0], "at abcde");
   console.log(selectedDate, "date");
   console.log(selectedTimeSlot, "time");
   console.log(selectedAddress, "address");
@@ -46,13 +49,50 @@ const Booking = () => {
     setStep(3);
   };
 
-  const handlePaymentComplete=()=>{
+  
+
+  const handlePaymentComplete=(paymentMethod)=>{
+     const requestedData = {
+      serviceId:serviceId,
+      selectedDate,
+      selectedTimeSlot,
+      selectedAddress,
+      paymentMethod,
+     }
+
+     submitBookingDataApi(requestedData)
+     .then((response)=>{
+      console.log(response,"at page res")
+      if(response.message){
+        navigate('/user/confirmPage')
+        console.log("booking succefful")
+
+      }
+      
+     
+     })
+     .catch((error)=>{
+      console.log(error)
+     })
+   
+
+
      
   }
 
   return (
     <>
-      {step === 1 ? (
+
+      
+
+
+
+
+
+<div className="flex mt-2">
+{/* Left side content */}
+<div className="w-8/12">
+{step === 1 ? (
         <div>
           <DateSelection onDateSelect={handleDateSelect} />
           <TimeSlotSelection
@@ -61,7 +101,7 @@ const Booking = () => {
           />
         </div>
       ) : (
-        <div className="w-8/12 ml-2 mt-3 p-4 border rounded-lg shadow-lg">
+        <div className="w-full ml-2 mt-3 p-4 border rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold mb-2">
             Selected Date and Time of service
           </h3>
@@ -86,7 +126,7 @@ const Booking = () => {
           />
         </div>
       ) : (
-        <div className="w-8/12 ml-2 mt-3  p-4 border rounded-lg shadow-lg">
+        <div className="w-full ml-2 mt-3  p-4 border rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold mb-2">Selected Address</h3>
           <div className="flex flex-col">
             <div className="flex ">
@@ -98,9 +138,38 @@ const Booking = () => {
       )}
 
       {step === 3 && (
-        <PaymentComponent onPaymentComplete={handlePaymentComplete}/>
+        <PaymentComponent onPlaceOrder={handlePaymentComplete}/>
       )}
+</div>
+
+{/* Right side div */}
+<div className="w-4/12 m-4 bg-gray-200">
+  {/* Content for the right side */}
+  {/* ... */}
+</div>
+</div>
+
+
+
+
+
+
+
+
+
     </>
+
+   
+
+
+
+
+
+
+
+
+
+
   );
 };
 

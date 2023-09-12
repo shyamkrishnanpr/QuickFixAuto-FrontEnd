@@ -225,6 +225,7 @@ export const addBannerApi = async(bannerData)=>{
 export const fetchBannerApi = async()=>{
     try {
         const response = await axios.get(`/admin/getBanner`)
+        console.log(response,"at api")
         return response.data
     } catch (error) {
         console.log(error)

@@ -6,11 +6,11 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [locality, setLocality] = useState('');
     const [flatNameNumber, setFlatNameNumber] = useState('');
-    const [addresses, setAddresses] = useState([]); // Track user-added addresses
-    const [availableAddresses, setAvailableAddresses] = useState([]); // Store addresses fetched from DB
-    const [addingNewAddress, setAddingNewAddress] = useState(true); // Always show input fields
+    const [addresses, setAddresses] = useState([]); 
+    const [availableAddresses, setAvailableAddresses] = useState([]); 
+    const [addingNewAddress, setAddingNewAddress] = useState(true); 
   
-    // Dummy list of available addresses (you can fetch this from an API or database)
+   
     const initialAvailableAddresses = [
       '123 Main St, City1',
       '456 Elm St, City2',
@@ -18,16 +18,15 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
     ];
   
     useEffect(() => {
-      // Simulate fetching addresses from the database
-      // In a real application, replace this with your API call
+   
       setTimeout(() => {
         setAvailableAddresses(initialAvailableAddresses);
-      }, 1000); // Simulate a delay of 1 second
+      }, 1000);
     }, []);
   
     const handleAddressClick = (address) => {
       setSelectedAddress(address);
-      setAddingNewAddress(false); // Reset to selecting from existing addresses
+      setAddingNewAddress(false); 
     };
   
     const handleNewAddressChange = (e) => {
@@ -42,12 +41,12 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
     const handleAddNewAddress = () => {
       if (locality.trim() !== '' && flatNameNumber.trim() !== '') {
         const newAddress = `${flatNameNumber}, ${locality}`;
-        setAddresses([...addresses, newAddress]); // Add the new address to the list
+        setAddresses([...addresses, newAddress]); 
         setSelectedAddress(newAddress);
         setFlatNameNumber('');
         setLocality('');
       } else {
-        // Handle empty fields or validation errors
+        
       }
     };
   
@@ -64,7 +63,7 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
          
   return (
     <>
-    <div className="mt-2 ml-2 p-4 rounded-lg shadow-lg flex flex-col w-8/12 h-full">
+    <div className="mt-2 ml-2 p-4 rounded-lg shadow-lg flex flex-col w-full h-full">
       <h3 className="text-xl font-semibold mb-2">Select Pickup Address</h3>
   
 
