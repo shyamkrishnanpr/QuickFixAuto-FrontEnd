@@ -12,9 +12,7 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
   
    
     const initialAvailableAddresses = [
-      '123 Main St, City1',
-      '456 Elm St, City2',
-      '789 Oak St, City3',
+     
     ];
   
     useEffect(() => {

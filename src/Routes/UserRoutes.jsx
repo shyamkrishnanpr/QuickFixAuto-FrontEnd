@@ -11,6 +11,7 @@ import ServiceDetailPage from '../pages/user/services/ServiceDetailPage'
 import ForgotPasswordPage from '../pages/user/ForgotPassword/ForgotPasswordPage'
 import ResetPasswordPage from '../pages/user/ResetPassword/ResetPasswordPage'
 import BookingPage from '../pages/user/Booking/BookingPage'
+import ConfirmationPage from '../components/user/ConfirmationPage'
 
 const UserRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const UserRoutes = () => {
         <Route path='/services' element={<ServicePage/>} />
         <Route path='/serviceDetails/:serviceId' element={<ServiceDetailPage/>} />
         <Route path='/booking/:serviceId' element={<BookingPage/>}/>
+        <Route path='/confirmPage' element={<ConfirmationPage/>}/>
         
        
 
