@@ -31,12 +31,14 @@ const Category = () => {
         setError("Field cannot be empty")
         return
       }
-    if(categories.some((category)=>category.category==newCategory)){
+
+
+    if(categories.some((category)=>category.category.toLowerCase()==newCategory)){
       setError("Category already exists...")
       return;
     }
       try {
-        dispatch(addCategoriesAsync(newCategory));
+        dispatch(addCategoriesAsync(newCategory.toUpperCase()));
         console.log("category added", newCategory);
         setNewCategory("");
         setIsModalOpen(false);

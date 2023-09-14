@@ -4,7 +4,8 @@ import ConfirmationPage from '../../../components/user/ConfirmationPage'
 const ConfirmationPage = () => {
   return (
     <>
-      <ConfirmationPage/>
+
+      <ConfirmationPage />
     </>
   )
 }

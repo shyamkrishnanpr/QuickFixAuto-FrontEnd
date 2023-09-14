@@ -26,8 +26,8 @@ const UserRoutes = () => {
 
         <Route path='/services' element={<ServicePage/>} />
         <Route path='/serviceDetails/:serviceId' element={<ServiceDetailPage/>} />
-        <Route path='/booking/:serviceId' element={<BookingPage/>}/>
-        <Route path='/confirmPage' element={<ConfirmationPage/>}/>
+        <Route path='/booking/:serviceId' element={<UserVerification><BookingPage/></UserVerification>}/>
+        <Route path='/confirmPage' element={<UserVerification><ConfirmationPage/></UserVerification>}/>
         
        
 

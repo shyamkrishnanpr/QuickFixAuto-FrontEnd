@@ -62,7 +62,7 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
   return (
     <>
     <div className="mt-2 ml-2 p-4 rounded-lg shadow-lg flex flex-col w-full h-full">
-      <h3 className="text-xl font-semibold mb-2">Select Pickup Address</h3>
+      <h3 className="text-xl font-semibold mb-2">Add Pickup Address</h3>
   
 
       <div className="mt-4">
@@ -93,7 +93,7 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
           <div
             key={index}
             className={`border rounded-md px-3 py-2 mb-2 cursor-pointer ${
-              address === selectedAddress ? 'bg-blue-200' : 'bg-white'
+              address === selectedAddress ? 'bg-red-200' : 'bg-white'
             }`}
             onClick={() => handleAddressClick(address)}
           >
@@ -104,7 +104,7 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
           <div
             key={index}
             className={`border rounded-md px-3 py-2 mb-2 cursor-pointer ${
-              address === selectedAddress ? 'bg-blue-200' : 'bg-white'
+              address === selectedAddress ?  'border-red-300 border-2' : 'bg-white'
             }`}
             onClick={() => handleAddressClick(address)}
           >
@@ -115,7 +115,7 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
 
       <div className="flex justify-end mt-4">
         <button
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md"
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
           onClick={handleContinueClick}
         >
           Continue

@@ -6,6 +6,7 @@ function getUserType() {
   
     if (currentPath.startsWith('/user')) {
       const userToken = localStorage.getItem('userToken')
+      console.log("usertoken at getusertype",userToken)
      if(userToken){
       return{type:'user' ,token:userToken}
      }

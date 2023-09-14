@@ -151,7 +151,7 @@ const Service = () => {
           </div>
           <div className="w-4/12">
             {filteredVendors.length > 0 && (
-              <div className="bg-gray-200 rounded-lg shadow-md mt-2 ml-2 mr-2 p-4">
+              <div className="w-full   h-screen flex flex-col justify-items-start  items-center  ml-5 rounded-lg shadow-md">
                 <img
                   src={`http://localhost:3000/vehicleImages/${filteredVendors[0].vehicleId.image}`} // Assuming the image path is in the 'vehicleImage' property
                   alt="Vehicle"

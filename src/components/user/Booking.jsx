@@ -66,7 +66,13 @@ const Booking = () => {
       .then((response) => {
         console.log(response, "at page res");
         if (response.message) {
-          navigate("/user/confirmPage");
+          navigate("/user/confirmPage", {
+            state: {
+              selectedDate,
+              selectedTimeSlot,
+              selectedAddress,
+            },
+          });
           console.log("booking succefful");
         }
       })
@@ -88,10 +94,6 @@ const Booking = () => {
       document.body.appendChild(script);
     });
   };
-
-  // useEffect(()=>{
-  //   loadScript('https://checkout.razorpay.com/v1/checkout.js')
-  // })
 
   async function handleClick() {
     let orderId =
@@ -141,10 +143,16 @@ const Booking = () => {
             .then((response) => {
               const { _id } = response.data.data;
               console.log("responsedta", response);
-              navigate("/user/confirmPage");
+              navigate("/user/confirmPage", {
+                state: {
+                  selectedDate,
+                  selectedTimeSlot,
+                  selectedAddress,
+                },
+              });
             })
             .catch((error) => {
-             console.log(error)
+              console.log(error);
             });
         },
         prefill: {
@@ -170,8 +178,10 @@ const Booking = () => {
 
   return (
     <>
+      <div className="flex justify-center justify-items-center ">
+        <h1 className="text-2xl text-red-700 font-bold">Book Your Service</h1>
+      </div>
       <div className="flex mt-2">
-        {/* Left side content */}
         <div className="w-8/12">
           {step === 1 ? (
             <div>
@@ -182,7 +192,7 @@ const Booking = () => {
               />
             </div>
           ) : (
-            <div className="w-full ml-2 mt-3 p-4 border rounded-lg shadow-lg">
+            <div className="w-full ml-2  p-4 border rounded-lg shadow-lg">
               <h3 className="text-xl font-semibold mb-2">
                 Selected Date and Time of service
               </h3>
@@ -219,28 +229,38 @@ const Booking = () => {
           )}
 
           {step === 3 && (
-            <PaymentComponent onPlaceOrder={handlePaymentComplete} />
+            <PaymentComponent
+              onPlaceOrder={handlePaymentComplete}
+              onPlaceOrders={handleClick}
+            />
           )}
-
-
-<button
-        className= "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md"
-          
-        
-        onClick={handleClick}
-     
-      >PAY NOW
-        
-      </button>
-
-          <button onClick={handleClick}>pay</button>
         </div>
 
-        {/* Right side div */}
-        <div className="w-4/12 m-4 bg-gray-200">
-          {/* Content for the right side */}
-          {/* ... */}
-        </div>
+        {selectedService.map((service, index) => (
+          <div className="w-4/12   h-screen flex flex-col justify-items-start  items-center  ml-5 rounded-lg shadow-md">
+            <img
+              src={`http://localhost:3000/vehicleImages/${service.vehicleId.image}`}
+              alt="Vehicle"
+              className="w-10/12 h-auto  mb-1 mt-2"
+            />
+
+            <h3 className="text-md text-red-600 font-semibold mb-2">
+              {" "}
+              {service.vehicleId.brand} {service.vehicleId.model}
+            </h3>
+            <p className="text-md mb-2">
+              Service Category:{service.categoryId.category}
+            </p>
+
+            <p className="text-md mb-2">
+              Type: {service.subCategoryId.subCategory}
+            </p>
+
+            <p className="text-xl text-red-500 font-semibold">
+              Price: {service.price}
+            </p>
+          </div>
+        ))}
       </div>
     </>
   );
