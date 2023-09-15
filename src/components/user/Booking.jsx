@@ -12,7 +12,11 @@ import AddressSelection from "./AddressSelection";
 import PaymentComponent from "./PaymentComponent";
 
 const Booking = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const selectedService = useSelector((state) => state.booking.selectService);
+
+  
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
@@ -21,14 +25,16 @@ const Booking = () => {
   const [paymentError, setPaymentError] = useState("");
 
   const Total = selectedService[0]?.price;
+  const vendorId = selectedService[0]?.vendorId._id
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+ 
+  
   const { serviceId } = useParams();
-  console.log(serviceId, "in page");
+  
   useEffect(() => {
     dispatch(fetchServiceDetailsAsync(serviceId));
   }, []);
+
 
   console.log(selectedService[0], "at abcde");
   console.log(selectedDate, "date");
@@ -56,6 +62,7 @@ const Booking = () => {
   const handlePaymentComplete = (paymentMethod) => {
     const requestedData = {
       serviceId: serviceId,
+      vendorId:vendorId,
       selectedDate,
       selectedTimeSlot,
       selectedAddress,
@@ -130,6 +137,7 @@ const Booking = () => {
         handler: async function (response) {
           let packageDatas = {
             serviceId: serviceId,
+            vendorId:vendorId,
             selectedDate,
             selectedTimeSlot,
             selectedAddress,

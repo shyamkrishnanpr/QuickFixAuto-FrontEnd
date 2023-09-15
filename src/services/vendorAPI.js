@@ -33,7 +33,7 @@ export const vendorResendOtpApi = async (values) => {
 export const vendorLoginApi = async (values) => {
   try {
     const response = await axios.post("/vendor/login", values);
-    console.log("at api",response)
+    console.log("at api", response);
     return response.data;
   } catch (error) {
     toast.error(error.response.data.message);
@@ -66,63 +66,74 @@ export const updateVendorDataApi = async (vendorId, editedVendorData) => {
   }
 };
 
-export const fetchCategoryApi = async()=>{
-    try {
-        const response = await axios.get('/vendor/category')
-        return response.data
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-export const fetchSubCategoryApi = async(selectedCategory)=>{
-    try {
-        const response = await axios.get(`/vendor/subCategory?categoryId=${selectedCategory}`)
-        return response.data     
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-export const fetchVehiclesApi = async()=>{
-    try {
-        const response = await axios.get(`/vendor/vehicles`)
-        return response.data
-    } catch (error) {
-        console.log("error in vehicle fetch",error)
-    }
-}
-
-export const addServiceApi = async(newServiceData)=>{
+export const fetchCategoryApi = async () => {
   try {
-    console.log("abc",newServiceData)
-    const response = await axios.post(`/vendor/addService`,newServiceData)
-    return response.data
+    const response = await axios.get("/vendor/category");
+    return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-
-export const fetchServiceApi = async(page,perPage)=>{
+export const fetchSubCategoryApi = async (selectedCategory) => {
   try {
-    const response = await axios.get(`/vendor/getServices?page=${page}&perPage=${perPage}`)
-    console.log("at api",response)
-    return response.data
+    const response = await axios.get(
+      `/vendor/subCategory?categoryId=${selectedCategory}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchVehiclesApi = async () => {
+  try {
+    const response = await axios.get(`/vendor/vehicles`);
+    return response.data;
+  } catch (error) {
+    console.log("error in vehicle fetch", error);
+  }
+};
+
+export const addServiceApi = async (newServiceData) => {
+  try {
+    console.log("abc", newServiceData);
+    const response = await axios.post(`/vendor/addService`, newServiceData);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchServiceApi = async (page, perPage) => {
+  try {
+    const response = await axios.get(
+      `/vendor/getServices?page=${page}&perPage=${perPage}`
+    );
+    console.log("at api", response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addAvailableSlotsApi = async (data) => {
+  try {
+    console.log(data, "in api");
+    const response = await axios.post(`/vendor/addSlots`, data);
+    console.log(response.data, "at api res");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchOrdersApi = async () => {
+  try {
+    const response = await axios.get(`/vendor/getOrders`);
     
+    return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
-
-
-export const addAvailableSlotsApi = async(data)=>{
-  try {
-    console.log(data,"in api")
-    const response = await axios.post(`/vendor/addSlots`,data)
-    console.log(response.data,"at api res")
-    return response.data
-  } catch (error) {
-    console.log(error)
-  }
-}
+};

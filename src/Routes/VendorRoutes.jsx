@@ -8,6 +8,7 @@ import LoginPage from "../pages/vendor/login/LoginPage";
 import ProfilePage from "../pages/vendor/profile/ProfilePage";
 import ServicePage from "../pages/vendor/services/ServicePage";
 import AvailabilityPage from "../pages/vendor/availability/AvailabilityPage";
+import BookingPage from "../pages/vendor/booking/BookingPage";
 
 const VendorRoutes = () => {
   return (
@@ -18,7 +19,8 @@ const VendorRoutes = () => {
       <Route path="/dashBoard" element={<VendorVerification><DashBoardPage /></VendorVerification>} />
       <Route path="/profile" element={<VendorVerification><ProfilePage /></VendorVerification>} />
       <Route path="/services" element={<VendorVerification><ServicePage /></VendorVerification>} />
-      <Route path="/availability" element={<AvailabilityPage />} />
+      <Route path="/availability" element={<VendorVerification><AvailabilityPage /></VendorVerification>} />
+      <Route path="/orders" element={<VendorVerification><BookingPage /></VendorVerification>} />
     </Routes>
   );
 };
