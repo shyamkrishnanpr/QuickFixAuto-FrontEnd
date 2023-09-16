@@ -9,6 +9,7 @@ import ProfilePage from "../pages/vendor/profile/ProfilePage";
 import ServicePage from "../pages/vendor/services/ServicePage";
 import AvailabilityPage from "../pages/vendor/availability/AvailabilityPage";
 import BookingPage from "../pages/vendor/booking/BookingPage";
+import ErrorPage from "../components/util/ErrorPage";
 
 const VendorRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const VendorRoutes = () => {
       <Route path="/services" element={<VendorVerification><ServicePage /></VendorVerification>} />
       <Route path="/availability" element={<VendorVerification><AvailabilityPage /></VendorVerification>} />
       <Route path="/orders" element={<VendorVerification><BookingPage /></VendorVerification>} />
+      <Route path="/*" element={<ErrorPage/>}/>
     </Routes>
   );
 };

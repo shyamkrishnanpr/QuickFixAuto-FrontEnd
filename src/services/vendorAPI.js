@@ -137,3 +137,16 @@ export const fetchOrdersApi = async () => {
     console.log(error);
   }
 };
+
+export const updateOrderStatusApi=async(orderId,newStatus)=>{
+  try {
+    const response = await axios.put(`/vendor/updateOrder/${orderId}/status`,{status:newStatus})
+
+    console.log(response)
+    return response
+
+  
+  } catch (error) {
+    console.log(error)
+  }
+}

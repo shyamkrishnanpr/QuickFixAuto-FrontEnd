@@ -7,8 +7,10 @@ import {
   fetchVendorDataApi,
   updateVendorDataApi,
 } from "../../services/vendorAPI";
+import { useNavigate } from "react-router";
 
 const Profile = () => {
+  const navigate = useNavigate()
   const { vendorId } = useSelector((state) => state.vendorAuth);
 
   const [vendorData, setVendorData] = useState(null);
@@ -59,6 +61,8 @@ const Profile = () => {
         }
       } catch (error) {
         console.log(error);
+       
+
       }
     };
 
