@@ -31,6 +31,11 @@ const Sidebar = () => {
             ORDERS
           </Link>
         </li>
+        <li>
+        <Link to="/vendor/chat" className="block  text-white hover:bg-blue-900 p-2 rounded">
+            CHAT
+          </Link>
+        </li>
         
        
         

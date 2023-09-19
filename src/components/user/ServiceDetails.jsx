@@ -2,13 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { fetchServiceDetailApi } from "../../services/userAPI";
 import { Link } from "react-router-dom";
+import UserChatBox from "./UserChatBox";
 
 const ServiceDetails = () => {
   const { serviceId } = useParams();
   const [serviceDetails, setServiceDetails] = useState(null);
-  console.log(serviceId, "in page");
 
-  console.log(serviceDetails, "state");
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const userToken = localStorage?.getItem("userToken");
+  const parsedUserToken = JSON?.parse(userToken);
+  
+  const userId = parsedUserToken?.userId;
+
+
+  const vendorId = serviceDetails && serviceDetails[0]?.vendorId?._id;
+
+  console.log(vendorId,"at service ")
+  
+
   useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
@@ -21,6 +33,10 @@ const ServiceDetails = () => {
     };
     fetchServiceDetails();
   }, [serviceId]);
+
+  const handleChatToggle = () => {
+    setIsChatOpen((prevIsChatOpen) => !prevIsChatOpen);
+  };
 
   return (
     <>
@@ -81,6 +97,42 @@ const ServiceDetails = () => {
           </div>
         ))}
       </div>
+      {userId&& vendorId&& (
+        <>
+        <button
+        className={`fixed transition duration-150 ease-out hover:ease-in right-4  sm:right-10 z-10 bg-red-500 hover:bg-red-400 rounded-full p-4 cursor-pointer  ${
+          isChatOpen
+            ? "opacity-75 bottom-2/4 sm:bottom-10 "
+            : "opacity-100  bottom-10"
+        }`}
+        onClick={handleChatToggle}
+      >
+        {isChatOpen ? (
+          <h4 className="text-red-800 flex ">
+            <span className="text-white mr-2">Close</span>X
+          </h4>
+        ) : (
+          <>
+            <h4 className="text-white">Chat with Manager</h4>
+          </>
+        )}
+      </button>
+        </>
+      )}
+
+      
+      {userId&&vendorId&&(
+ <div
+ className={`${
+   isChatOpen ? "block" : "hidden"
+ } fixed bottom-0 duration-500 right-0 left-0 rounded-lg bg-white p-4 shadow-lg sm:w-1/2 lg:w-1/3 lg:bottom-0 lg:right-4 mx-auto transition-opacity animate-inside-out ${
+   isChatOpen ? "opacity-96" : "opacity-0"
+ }`}
+>
+ {userId && <UserChatBox vendorId={vendorId} userId={userId} />}
+</div>
+      )}
+     
     </>
   );
 };
