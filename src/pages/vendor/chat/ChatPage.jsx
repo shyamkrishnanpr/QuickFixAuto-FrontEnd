@@ -7,9 +7,12 @@ const ChatPage = () => {
   return (
     <>
       <Navbar />
-
+      <div className="flex">
+      <Sidebar/>
       
-        <Chat />
+      <Chat />
+      </div>
+
  
     </>
   );

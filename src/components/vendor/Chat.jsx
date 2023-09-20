@@ -14,7 +14,7 @@ const Chat = () => {
   return (
     <>
       
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col w-8/12 sm:flex-row gap-4">
   <div className="w-full sm:w-1/3">
     <div className="h-full bg-white rounded-lg shadow-md">
       <div className="border-b">

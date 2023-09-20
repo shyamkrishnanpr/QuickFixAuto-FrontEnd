@@ -77,6 +77,12 @@ const UserChatBox = ({ vendorId, userId }) => {
     });
   }, []);
 
+
+  useEffect(() => {
+        
+    chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+  }, [inputMessage]);
+
   //  useEffect(() => {
 
   //   console.log("herer in side scroll use effect")
@@ -116,7 +122,7 @@ const UserChatBox = ({ vendorId, userId }) => {
       {/* Component Start */}
       <div className="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
       
-      <div className="flex flex-col flex-grow h-0 p-4 overflow-auto" ref={chatMessagesRef}>
+      <div className="flex flex-col flex-grow bg-gray-200 h-0 p-4 overflow-auto" ref={chatMessagesRef}>
           {chatMessages?.map((message, index) => (
             <div
               key={index}
@@ -128,7 +134,7 @@ const UserChatBox = ({ vendorId, userId }) => {
                 <>
                   
                   <div>
-                    <div className="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                    <div className="bg-red-500 text-white p-3 rounded-l-lg rounded-br-lg">
                       <p className="text-sm">{message?.text}</p>
                     </div>
                     <span className="text-xs text-gray-500 leading-none">
@@ -142,7 +148,7 @@ const UserChatBox = ({ vendorId, userId }) => {
               ) : (
                 <>
                   <div>
-                    <div className="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                    <div className="bg-gray-400 p-3 rounded-r-lg rounded-bl-lg">
                       <p className="text-sm">{message?.text}</p>
                     </div>
                     <span className="text-xs text-gray-500 leading-none">
@@ -152,7 +158,7 @@ const UserChatBox = ({ vendorId, userId }) => {
                       })}
                     </span>
                   </div>
-                  <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                  
                 </>
               )}
             </div>
@@ -171,7 +177,7 @@ const UserChatBox = ({ vendorId, userId }) => {
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                className="px-4 py-2 bg-red-600 text-white rounded-md"
               >
                 Send
               </button>

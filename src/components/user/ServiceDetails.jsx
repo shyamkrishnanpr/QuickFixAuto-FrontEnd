@@ -113,7 +113,7 @@ const ServiceDetails = () => {
           </h4>
         ) : (
           <>
-            <h4 className="text-white">Chat with Manager</h4>
+            <h4 className="text-white">Chat here..</h4>
           </>
         )}
       </button>
