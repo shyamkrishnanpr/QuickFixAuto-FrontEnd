@@ -22,12 +22,12 @@ const DateSelection = ({ onDateSelect }) => {
 
   return (
     <>
-      <div className=" ml-2 p-4 rounded-lg shadow-lg w-full sm:flex sm:flex-col md:flex-row lg:flex-row">
+      <div className="  p-4 rounded-lg shadow-lg w-full sm:flex sm:flex-col md:flex-row lg:flex-row">
         <div className="w-full sm:w-auto ">
           <h2 className="text-xl font-semibold mb-4">
             Select Date and Time of Service:
           </h2>
-          <div className="flex space-x-4 flex-wrap">
+          <div className="flex space-x-2 flex-wrap">
             {availableDates.map((date) => (
               <div
                 key={date}

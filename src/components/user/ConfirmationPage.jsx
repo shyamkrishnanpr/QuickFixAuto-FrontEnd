@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import {Link} from 'react-router-dom'
-import Navbar from "./Navbar";
+
 
 const ConfirmationPage = (data) => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const ConfirmationPage = (data) => {
   const selectedService = useSelector((state) => state.booking.selectService);
   console.log(selectedService,"services")
   return <>
-  <Navbar/>
+  
    <div className="max-w-3xl mx-auto mt-8 p-4">
       <div className="bg-red-800 text-white p-6 rounded-lg shadow-xl">
         <h2 className="text-3xl font-bold mb-4">Succefully booked ....</h2>

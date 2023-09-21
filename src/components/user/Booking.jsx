@@ -200,7 +200,7 @@ const Booking = () => {
               />
             </div>
           ) : (
-            <div className="w-full ml-2  p-4 border rounded-lg shadow-lg">
+            <div className="w-full   p-4 border rounded-lg shadow-lg">
               <h3 className="text-xl font-semibold mb-2">
                 Selected Date and Time of service
               </h3>
@@ -225,7 +225,7 @@ const Booking = () => {
               />
             </div>
           ) : (
-            <div className="w-full ml-2 mt-3  p-4 border rounded-lg shadow-lg">
+            <div className="w-full  mt-3  p-4 border rounded-lg shadow-lg">
               <h3 className="text-xl font-semibold mb-2">Selected Address</h3>
               <div className="flex flex-col">
                 <div className="flex ">

@@ -11,7 +11,7 @@ import ServiceDetailPage from '../pages/user/services/ServiceDetailPage'
 import ForgotPasswordPage from '../pages/user/ForgotPassword/ForgotPasswordPage'
 import ResetPasswordPage from '../pages/user/ResetPassword/ResetPasswordPage'
 import BookingPage from '../pages/user/Booking/BookingPage'
-import ConfirmationPage from '../components/user/ConfirmationPage'
+import ConfirmationPages from "../pages/user/Confirmation/ConfirmationPage"
 import OrderHistoryPage from '../pages/user/Orders/OrderHistoryPage'
 
 const UserRoutes = () => {
@@ -28,7 +28,7 @@ const UserRoutes = () => {
         <Route path='/services' element={<ServicePage/>} />
         <Route path='/serviceDetails/:serviceId' element={<ServiceDetailPage/>} />
         <Route path='/booking/:serviceId' element={<UserVerification><BookingPage/></UserVerification>}/>
-        <Route path='/confirmPage' element={<UserVerification><ConfirmationPage/></UserVerification>}/>
+        <Route path='/confirmPage' element={<UserVerification><ConfirmationPages/></UserVerification>}/>
         <Route path='/orderHistory' element={<UserVerification><OrderHistoryPage/></UserVerification>}/>
         
 

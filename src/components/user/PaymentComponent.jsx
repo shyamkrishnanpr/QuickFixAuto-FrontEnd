@@ -16,7 +16,7 @@ const PaymentComponent = ({ onPlaceOrder, onPlaceOrders }) => {
 
   return (
     <>
-      <div className=" w-full ml-2 mt-3 p-4 border rounded-lg shadow-lg">
+      <div className=" w-full  mt-3 p-4 border rounded-lg shadow-lg">
         <h3 className="text-xl font-semibold mb-4">Pay After Service</h3>
         <div className="mb-4"></div>
         <button

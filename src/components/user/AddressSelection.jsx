@@ -61,7 +61,7 @@ const AddressSelection = ({onAddressSelect,onContinue}) => {
          
   return (
     <>
-    <div className="mt-2 ml-2 p-4 rounded-lg shadow-lg flex flex-col w-full h-full">
+    <div className="mt-2  p-4 rounded-lg shadow-lg flex flex-col w-full h-full">
       <h3 className="text-xl font-semibold mb-2">Add Pickup Address</h3>
   
 
