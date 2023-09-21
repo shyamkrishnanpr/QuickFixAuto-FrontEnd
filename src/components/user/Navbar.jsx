@@ -14,14 +14,11 @@ const Navbar = () => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const dropdownRef = useRef(null);
-
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const closeDropdown = () => {
-    console.log("Close dropdown");
     setIsDropdownOpen(false);
   };
 
@@ -29,6 +26,12 @@ const Navbar = () => {
     dispatch(logout());
     navigate("/user/dashboard");
   };
+
+
+  
+
+
+
   return (
     <div>
       <div>
@@ -45,30 +48,33 @@ const Navbar = () => {
               <li className="relative">
                 <button
                   onClick={toggleDropdown}
-                  onBlur={closeDropdown}
-                  className="text-white hover:text-black bg-red-700 px-2 py-1 rounded-md"
+                  className="text-white relative hover:text-black bg-red-700 px-2 py-1 rounded-md"
                 >
                   {userName}
                 </button>
                 {isDropdownOpen && (
-                  <ul className="absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-md"  >
-                    <li>
-                      <Link
-                        to="/user/profile"
-                        className="block px-4 py-2 hover:bg-gray-200"
-                      >
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/user/order-history"
-                        className="block px-4 py-2 hover:bg-gray-200"
-                      >
-                        Order History
-                      </Link>
-                    </li>
-                  </ul>
+                  <ul
+                  className="absolute top-full left-0 mt-4 bg-white border border-red-700 rounded-md shadow-md"
+                  onMouseDown={(e) => e.stopPropagation()}
+                >
+                  <li>
+                    <Link
+                      to="/user/profile"
+                      className="block px-4 py-2 hover:bg-gray-200  transition duration-300"
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/user/orderHistory"
+                      className="block px-4 py-2 hover:bg-gray-200 transition duration-300"
+                    >
+                      Order History
+                    </Link>
+                  </li>
+                </ul>
+                
                 )}
               </li>
 
