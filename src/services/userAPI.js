@@ -132,3 +132,23 @@ export const submitBookingDataApi = async(bookingData)=>{
     console.log(error)
   }
 }
+
+export const fetchRunningOrdersApi = async()=>{
+  try {
+    const response = await axios.get(`/user/runningOrders`)
+    console.log(response.data,"at api order")
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const fetchCompletedOrdersApi = async()=>{
+  try {
+    const response = await axios.get(`/user/completedOrders`)
+    return response.data
+    
+  } catch (error) {
+    console.log(error)
+  }
+}

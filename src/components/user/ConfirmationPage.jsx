@@ -44,7 +44,7 @@ const ConfirmationPage = (data) => {
 
     
       <Link
-        to="/user/bookingHistory"
+        to="/user/orderHistory"
         className="mt-6 block bg-red-800 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-center font-semibold"
       >
         View Booking History

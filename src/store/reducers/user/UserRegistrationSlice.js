@@ -204,7 +204,7 @@ export const resetPasswordAsync = createAsyncThunk(
 )
 
 const initialState = user
-  ? { isLoggedInUser: true, loading: false }
+  ? { isLoggedInUser: true,  loading: false ,userId:user.userId}
   : {
       isLoggedInUser: false,
       userId: null,

@@ -22,14 +22,14 @@ const ServiceDetails = () => {
   
 
   useEffect(() => {
-    const fetchServiceDetails = async () => {
-      try {
-        await fetchServiceDetailApi(serviceId).then((data) =>
+    const fetchServiceDetails =  () => {
+      
+      fetchServiceDetailApi(serviceId).then((data) =>
           setServiceDetails(data)
-        );
-      } catch (error) {
-        console.log(error);
-      }
+        ).catch((error)=>{
+          console.log(error)
+        });
+     
     };
     fetchServiceDetails();
   }, [serviceId]);

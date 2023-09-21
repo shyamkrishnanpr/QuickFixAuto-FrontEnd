@@ -1,10 +1,13 @@
 import React from 'react'
+import Navbar from '../../../components/user/Navbar'
 import Profile from '../../../components/user/Profile'
-import Map from '../../../components/vendor/Map'
+
+
 
 const ProfilePage = () => {
   return (
     <>
+    <Navbar/>
       <Profile/>
       
     </>
