@@ -13,6 +13,7 @@ const ServiceList = () => {
     const fetchAllService = async () => {
       try {
         const serviceData = await fetchAllServiceApi(currentPage);
+        console.log(serviceData,"at page")
         setServices(serviceData.services);
         const serviceCount = serviceData.count;
         const calculateTotalPage = Math.ceil(serviceCount / pageSize);

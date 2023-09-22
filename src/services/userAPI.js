@@ -74,10 +74,12 @@ export const resetPasswordApi = async(data)=>{
 
 
 
-export const fetchServicesApi = async (userLocation) => {
+export const fetchServicesApi = async (userLocation,category,currentPage) => {
   try {
-    const response = await axios.post("/user/services", { userLocation });
-    console.log(response.data, "in api");
+
+    
+    const response = await axios.post(`/user/services?page=${currentPage}`, { userLocation,category });
+    
     return response.data;
   } catch (error) {
     console.log(error, "errro in fetchApi");
