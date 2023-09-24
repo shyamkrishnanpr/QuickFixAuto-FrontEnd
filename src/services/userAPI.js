@@ -154,3 +154,14 @@ export const fetchCompletedOrdersApi = async()=>{
     console.log(error)
   }
 }
+
+export const cancelOrderApi = async(orderId)=>{
+  try {
+    console.log(orderId,"at api cancel")
+    const response = await axios.patch(`/user/cancelOrder/${orderId}`)
+    
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}

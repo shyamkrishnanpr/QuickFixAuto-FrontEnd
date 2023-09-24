@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { fetchRunningOrdersApi } from '../../services/userAPI'
+import { fetchRunningOrdersApi,cancelOrderApi } from '../../services/userAPI'
+import ConfirmationDialog from '../util/ConfirmationDialog'
 
 const OngoingOrders = () => {
     const [onGoingOrders,setOngoingOrders] = useState([])
     const [loading,setLoading] = useState(true)
+    const [selectedOrder,setSelectedOrder] = useState(null)
 
     useEffect(()=>{
         const fetchOrders = ()=>{
@@ -17,6 +19,29 @@ const OngoingOrders = () => {
         }
         fetchOrders()
     },[])
+
+    const handleCancelClick = (orderId)=>{
+      setSelectedOrder(orderId)
+    }
+
+    const confirmCancelOrder = async()=>{
+      if(selectedOrder){
+        try {
+          console.log(selectedOrder,"at ok")
+          const canceledOrder = await cancelOrderApi(selectedOrder)
+          setOngoingOrders((prevOrders)=>{
+          return prevOrders.filter((orders)=>orders._id!==canceledOrder._id)
+          })
+          setSelectedOrder(null)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+
+    const handleCancleOrder = ()=>{
+      setSelectedOrder(null)
+    }
     
 
     
@@ -45,10 +70,18 @@ const OngoingOrders = () => {
                 {order.status === 'booked' && (
                   <button
                     className="bg-red-500 mt-5 text-white px-3 py-1 rounded hover:bg-red-600"
-                    onClick={() => handleCancelOrder(order._id)}
+                    onClick={()=>handleCancelClick(order._id)}
                   >
                     Cancel
                   </button>
+                )}
+
+                {selectedOrder &&(
+                  <ConfirmationDialog
+                  message="Are you want to cancel this order"
+                  onConfirm={confirmCancelOrder}
+                  onCancel={handleCancleOrder}
+                  />
                 )}
               </div>
             </div>

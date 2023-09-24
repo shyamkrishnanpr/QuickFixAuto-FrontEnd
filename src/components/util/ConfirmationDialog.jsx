@@ -4,7 +4,7 @@ const ConfirmationDialog = ({message, onConfirm, onCancel}) => {
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-gray-300 w-1/3 rounded-lg shadow-lg p-4">
+      <div className="bg-gray-100 w-1/3 rounded-lg shadow-lg p-4">
         <p className="text-xl mb-4">{message}</p>
         <div className="flex justify-center">
           <button
