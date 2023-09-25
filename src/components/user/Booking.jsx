@@ -127,7 +127,7 @@ const Booking = () => {
       console.log(result, "result");
 
       const options = {
-        key: "rzp_test_cSmUcIwFmaZtM2",
+        key: import.meta.env.VITE_KEY_ID,
         currency: result.data.data.currency,
         amount: result.data.data.amount,
         name: "QuickFixautos",
