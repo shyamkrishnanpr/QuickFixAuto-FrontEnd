@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../../../components/admin/dashboard/Navbar'
-import Sidebar from '../../../components/admin/dashboard/sidebar'
+import Sidebar from '../../../components/admin/dashboard/Sidebar'
 import ServiceList from '../../../components/admin/serviceManagement/ServiceList'
 const ServiceManagementAll = () => {
   return (

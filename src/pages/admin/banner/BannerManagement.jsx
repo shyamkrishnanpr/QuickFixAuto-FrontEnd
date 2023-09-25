@@ -1,7 +1,7 @@
 import React from 'react'
 import Banners from '../../../components/admin/bannerManagement/Banners'
 import Navbar from '../../../components/admin/dashboard/Navbar'
-import Sidebar from '../../../components/admin/dashboard/sidebar'
+import Sidebar from '../../../components/admin/dashboard/Sidebar'
 
 const BannerManagement = () => {
   return (
