@@ -3,7 +3,7 @@ import {getUserType} from '../authUtils/authUtil'
 
 const instance = axios.create({
     // baseURL:'http://localhost:3000'
-    baseURL:'https://quickfixautos.shop/'
+    baseURL:'https://quickfixautos.shop'
 })
 
 instance.interceptors.request.use(
