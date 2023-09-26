@@ -167,7 +167,7 @@ const Service = () => {
     {nearbyVendors.length > 0 && (
       <div className="w-full flex flex-col justify-center items-center rounded-lg shadow-md">
         <img
-          src={`http://localhost:3000/vehicleImages/${nearbyVendors[0].vehicleId.image}`} 
+          src={`https://quickfixautos.shop/vehicleImages/${nearbyVendors[0].vehicleId.image}`} 
           alt="Vehicle"
           className="mx-auto w-10/12 h-auto"
         />
