@@ -13,6 +13,7 @@ import ResetPasswordPage from '../pages/user/ResetPassword/ResetPasswordPage'
 import BookingPage from '../pages/user/Booking/BookingPage'
 import ConfirmationPages from "../pages/user/Confirmation/ConfirmationPage"
 import OrderHistoryPage from '../pages/user/Orders/OrderHistoryPage'
+import BookingFailurePage from '../pages/user/Booking/BookingFailurePage'
 import Error404 from '../pages/common/Error404'
 
 const UserRoutes = () => {
@@ -30,6 +31,7 @@ const UserRoutes = () => {
         <Route path='/serviceDetails/:serviceId' element={<ServiceDetailPage/>} />
         <Route path='/booking/:serviceId' element={<UserVerification><BookingPage/></UserVerification>}/>
         <Route path='/confirmPage' element={<UserVerification><ConfirmationPages/></UserVerification>}/>
+        <Route path='/failurePage' element={<UserVerification><BookingFailurePage/></UserVerification>}/>
         <Route path='/orderHistory' element={<UserVerification><OrderHistoryPage/></UserVerification>}/>
 
         <Route path='/*' element={<Error404/>}/>

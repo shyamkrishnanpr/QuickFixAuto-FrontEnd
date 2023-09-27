@@ -10,6 +10,8 @@ import DateSelection from "./DateSelection";
 import TimeSlotSelection from "./TimeSlotSelection";
 import AddressSelection from "./AddressSelection";
 import PaymentComponent from "./PaymentComponent";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Booking = () => {
   const dispatch = useDispatch();
@@ -180,12 +182,19 @@ const Booking = () => {
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } catch (error) {
-      console.log(error);
+
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(success.response.data.message);}
+        toast.error("An error occurred. Please try again.");
+      navigate("/user/failurePage")
+      console.log(error,"in cancel");
+      
     }
   }
 
   return (
     <>
+    <ToastContainer />
       <div className="flex justify-center justify-items-center ">
         <h1 className="text-2xl text-red-700 font-bold">Book Your Service</h1>
       </div>
