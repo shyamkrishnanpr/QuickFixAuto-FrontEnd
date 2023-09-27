@@ -12,6 +12,7 @@ import ServiceManagement from '../pages/admin/services/ServiceManagement'
 import ServiceManagementAll from '../pages/admin/services/ServiceManagementAll'
 import BannerManagement from '../pages/admin/banner/BannerManagement'
 import AdminAuth from '../auth/adminAuth'
+import Error404 from '../pages/common/Error404'
 const AdminRoutes = () => {
   return (
 
@@ -27,7 +28,7 @@ const AdminRoutes = () => {
                 <Route path='/servicesList' element={<AdminAuth><ServiceManagementAll/></AdminAuth> } />
                 <Route path='/banners' element={<AdminAuth><BannerManagement /></AdminAuth> } />
                
-
+                <Route path="/*" element={<Error404/>}/>
 
 
 

@@ -1,44 +1,36 @@
-import React from 'react'
+import React from "react";
 
 const ErrorPage = () => {
-
-
-    const navigate=useNavigate();
-    const handleClick=()=>{
-        navigate('/')
-
-    }
   return (
-    <div className="lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16">
-    <div className="xl:pt-24 w-full xl:w-1/2 relative pb-12 lg:pb-0">
-      <div className="relative">
-        <div className="absolute">
-          <div className="">
-            <h1 className="my-2 text-gray-800 font-bold text-2xl">
-              Looks like you've found the doorway to the great nothing
-            </h1>
-            <p className="my-2 text-gray-800">
-              Sorry about that! Please visit our homepage to get where you need
-              to go.
-            </p>
-            <button onClick={handleClick} className="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-opacity-50">
-              Take me there!
-            </button>
-          </div>
-        </div>
-        <div>
-          <img
-            src="https://i.ibb.co/G9DC8S0/404-2.png"
-            alt="Error 404 Illustration"
-          />
-        </div>
-      </div>
-    </div>
-    <div>
-      <img src="https://i.ibb.co/ck1SGFJ/Group.png" alt="Illustration" />
-    </div>
-  </div>
-  )
-}
+    <>
+      <div className="bg-gray-100 h-screen flex flex-col">
+        <section className="flex-grow flex items-center justify-center">
+          <div className="container mx-auto">
+            <div className="text-center">
+              <div className="bg-red-500 rounded-full w-60 h-60 flex items-center justify-center mx-auto">
+                <h2 className="text-8xl text-white">404</h2>
+              </div>
 
-export default ErrorPage
+              <div className="mt-8">
+                <h3 className="text-2xl font-semibold">
+                  Something went wrong here
+                </h3>
+                <p className="text-gray-600">
+                  The page you are looking for is not available!
+                </p>
+                <a
+                  href="/"
+                  className="mt-4 inline-block px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
+                >
+                  Go to Home
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
+};
+
+export default ErrorPage;
