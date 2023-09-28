@@ -2,8 +2,8 @@ import axios from "axios";
 import store from "../store/store";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000",
-  // baseURL:'https://quickfixautos.shop'
+  // baseURL: "http://localhost:3000",
+  baseURL:'https://quickfixautos.shop'
 });
 
 instance.interceptors.request.use(
