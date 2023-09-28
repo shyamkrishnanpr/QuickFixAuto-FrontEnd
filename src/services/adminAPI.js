@@ -234,5 +234,23 @@ export const fetchBannerApi = async()=>{
     }
 }
 
+export const dashboardDataApi = async()=>{
+    try {
+        const response = await axios.get(`/admin/dashboardData`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const dashboardGraphApi = async()=>{
+    try {
+        const responce =  await axios.get(`/admin/dashboardChart`)
+        return responce.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
