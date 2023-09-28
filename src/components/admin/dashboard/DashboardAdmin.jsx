@@ -42,7 +42,7 @@ const DashboardAdmin = () => {
 
   console.log(chartData, "chartdat");
 
-  const { serviceChart, bookingChart,userChart,vendorChart } = chartData || {};
+  const { serviceChart, bookingChart,usersChart,vendorChart } = chartData || {};
 
   const chartOptions = {
     responsive: true,
@@ -63,7 +63,7 @@ const DashboardAdmin = () => {
   };
 
   const chartDataConfig = {
-    labels: userChart ? Object.keys(userChart[0]?.data ?? 0) : [],
+    labels: usersChart ? Object.keys(usersChart[0]?.data ?? 0) : [],
     datasets: [
       {
         label: "Services",
@@ -77,7 +77,7 @@ const DashboardAdmin = () => {
       },
       {
         label: "Users",
-        data: userChart ? Object.values(userChart[0]?.data ?? 0) : [],
+        data: usersChart ? Object.values(usersChart[0]?.data ?? 0) : [],
         backgroundColor: "rgba(238, 231, 9, 1)",
       },
       {
