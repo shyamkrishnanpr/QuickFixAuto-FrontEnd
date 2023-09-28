@@ -119,7 +119,7 @@ const Vehicles = () => {
                   <p>Loading....</p>
                 ) : (
                   vehicles.map((vehicle) => {
-                    const imageUrl = `http://localhost:3000/vehicleImages/${vehicle.image}`;
+                    const imageUrl = `https://quickfixautos.shop/vehicleImages/${vehicle.image}`;
                     return (
                       <div
                         className="flex justify-between items-center py-2 px-4 border-b"
