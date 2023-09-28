@@ -63,7 +63,7 @@ const DashboardAdmin = () => {
   };
 
   const chartDataConfig = {
-    labels: serviceChart ? Object.keys(serviceChart[0]?.data ?? 0) : [],
+    labels: userChart ? Object.keys(userChart[0]?.data ?? 0) : [],
     datasets: [
       {
         label: "Services",
