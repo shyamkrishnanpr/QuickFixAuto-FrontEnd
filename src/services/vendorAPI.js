@@ -150,3 +150,24 @@ export const updateOrderStatusApi=async(orderId,newStatus)=>{
     console.log(error)
   }
 }
+
+export const fetchDashboardDataApi = async()=>{
+  try {
+    const responce = await axios.get(`/vendor/dashboardDetails`)
+    console.log(responce.data,"at api dash")
+    return responce.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const fetchDashboardApi = async()=>{
+  try {
+    const responce = await axios.get(`/vendor/dashboard`)
+    console.log(responce,"at graph")
+    return responce.data
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
