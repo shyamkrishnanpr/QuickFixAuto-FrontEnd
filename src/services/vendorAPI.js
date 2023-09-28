@@ -108,7 +108,7 @@ export const addServiceApi = async (newServiceData) => {
 export const fetchServiceApi = async (page, perPage) => {
   try {
     const response = await axios.get(
-      `/vendor/getServices?page=${page}&perPage=${perPage}`
+      `/vendor/getServices`
     );
     console.log("at api", response);
     return response.data;

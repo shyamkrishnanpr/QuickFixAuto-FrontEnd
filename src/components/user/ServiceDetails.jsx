@@ -87,7 +87,8 @@ const ServiceDetails = () => {
         {serviceDetails?.map((place, index) => (
           <div key={index} className="w-4/12 p-4 ">
             <img
-              src={`https://quickfixautos.shop/vehicleImages/${place.vehicleId.image}`}
+              // src={`https://quickfixautos.shop/vehicleImages/${place.vehicleId.image}`}
+              src={place.vehicleId.vehicleImages[0]?.url}
               className="mx-auto w-full h-auto  "
               alt={`${place.vehicleId.brand} ${place.vehicleId.model}`}
             />

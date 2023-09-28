@@ -256,7 +256,8 @@ const Booking = () => {
         {selectedService.map((service, index) => (
           <div className="w-4/12   h-screen flex flex-col justify-items-start  items-center  ml-5 rounded-lg shadow-md">
             <img
-              src={`https://quickfixautos.shop/vehicleImages/${service.vehicleId.image}`}
+              // src={`https://quickfixautos.shop/vehicleImages/${service.vehicleId.image}`}
+              src={service.vehicleId.vehicleImages[0]?.url}
               alt="Vehicle"
               className="w-10/12 h-auto  mb-1 mt-2"
             />

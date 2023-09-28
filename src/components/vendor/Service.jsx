@@ -13,7 +13,7 @@ const Service = () => {
   useEffect(() => {
     const fetchServiceData = async () => {
       try {
-        const serviceData = await fetchServiceApi(currentPage, perPage);
+        const serviceData = await fetchServiceApi();
         console.log("at service", serviceData);
         setServices(serviceData);
       } catch (error) {
@@ -75,7 +75,8 @@ const Service = () => {
                   <div className="flex flex-col rounded-md bg-blue-200   md:flex-row">
                     <div className="md:w-4/12 rounded-lg bg-white border border-solid border-gray-300 p-4">
                       <img
-                        src={`http://localhost:3000/vehicleImages/${service?.vehicleId?.image}`} // Replace with your service image URL
+                        // src={`http://localhost:3000/vehicleImages/${service?.vehicleId?.image}`} 
+                        src={service?.vehicleId?.vehicleImages[0]?.url}
                         alt="Service"
                         className="w-full h-full md:h-42 rounded-md object-cover"
                       />

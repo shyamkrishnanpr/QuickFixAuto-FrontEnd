@@ -52,6 +52,7 @@ const Vehicles = () => {
       });
       setVehicles([...vehicles, newVehicle]);
       closeModal();
+      fetchVehicleData();
     } catch (error) {
       console.log(error);
     }
@@ -94,7 +95,7 @@ const Vehicles = () => {
               <div>
                 <div>
                   <div className="flex justify-between bg-gradient-to-tr from-gray-800 to-gray-300 rounded-md py-2 px-4 text-white font-bold text-md">
-                    <div className="w-1/6"> 
+                    <div className="w-1/6">
                       <span>IMAGE</span>
                     </div>
                     <div className="w-1/6">
@@ -119,14 +120,18 @@ const Vehicles = () => {
                   <p>Loading....</p>
                 ) : (
                   vehicles.map((vehicle) => {
-                    const imageUrl = `https://quickfixautos.shop/vehicleImages/${vehicle.image}`;
+                    const imageUrl =
+                      vehicle.vehicleImages && vehicle.vehicleImages.length > 0
+                        ? vehicle.vehicleImages[0].url
+                        : "";
+
                     return (
                       <div
                         className="flex justify-between items-center py-2 px-4 border-b"
                         key={vehicle._id}
                       >
                         <div className="w-1/6">
-                          <img src={imageUrl} className="w-8 h-8 " />
+                          <img src={imageUrl} className="w-10 h-10 " />
                         </div>
 
                         <div className="w-1/6">
