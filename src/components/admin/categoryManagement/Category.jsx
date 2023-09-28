@@ -1,52 +1,53 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import {
   fetchCategoriesAsync,
   addCategoriesAsync,
   editCategoryAsync,
-  deleteCategoryAsync
-} from '../../../store/reducers/admin/categorySlice'
+  deleteCategoryAsync,
+} from "../../../store/reducers/admin/categorySlice";
 
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Category = () => {
-  const dispatch = useDispatch()
-  const categories = useSelector((state)=>state.category.categories)
-  console.log("categories in the state",categories)
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.category.categories);
+  console.log("categories in the state", categories);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newCategory, setNewCategory] = useState("");
-  const [isEditModalOpen,setIsEditModalOpen] = useState(false)
-  const [editCategory,setEditCategory] = useState("")
-  const [editCategoryId,setEditCategoryId] = useState(null)
-  const [error, setError] = useState('');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editCategory, setEditCategory] = useState("");
+  const [editCategoryId, setEditCategoryId] = useState(null);
+  const [error, setError] = useState("");
 
-  
   useEffect(() => {
     dispatch(fetchCategoriesAsync());
   }, [dispatch]);
 
-  const handleCategorySubmit = async () => {
-   
-      if(newCategory.trim()==""){
-        setError("Field cannot be empty")
-        return
-      }
-
-
-    if(categories.some((category)=>category.category.toLowerCase()==newCategory)){
-      setError("Category already exists...")
+  const handleCategorySubmit = () => {
+    if (newCategory.trim() == "") {
+      setError("Field cannot be empty");
       return;
     }
-      try {
-        dispatch(addCategoriesAsync(newCategory.toUpperCase()));
-        console.log("category added", newCategory);
-        setNewCategory("");
-        setIsModalOpen(false);
-        dispatch(fetchCategoriesAsync());
-      } catch (error) {
+
+    dispatch(addCategoriesAsync(newCategory.toUpperCase()))
+      .then((responce) => {
+       
+        if (responce.payload.request.status == 400) {
+          setError("Category already exists...");
+        }
+        if (responce.payload.request.status == 200) {
+          console.log("category added", newCategory);
+          setNewCategory("");
+          setIsModalOpen(false);
+          dispatch(fetchCategoriesAsync());
+        }
+      })
+      .catch((error) => {
         console.log(error);
-      }
-   
+      });
   };
 
   const handleDeleteCategory = async (id) => {
@@ -57,32 +58,43 @@ const Category = () => {
     }
   };
 
-  const handleEditSubmit = async () =>{
-    if(editCategory.trim()!==""){
-        try {
-            dispatch(editCategoryAsync({id:editCategoryId,newName:editCategory}))
-            setEditCategory("")
-            setEditCategoryId(null)
-            setIsEditModalOpen(false)
-            dispatch(fetchCategoriesAsync())
-        } catch (error) {
-            console.log(error)
-        }
+  const handleEditSubmit = async () => {
+    if (editCategory.trim() !== "") {
+      
+        dispatch(
+          editCategoryAsync({
+            id: editCategoryId,
+            newName: editCategory.toUpperCase(),
+          })
+        ).then((responce)=>{
+          
+          if (responce.payload.request.status == 400) {
+            setError("Category name  already exists...");
+          }
+          if (responce.payload.request.status == 200) {
+            setEditCategory("");
+            setEditCategoryId(null);
+            setIsEditModalOpen(false);
+            dispatch(fetchCategoriesAsync());
+          }
+
+
+        })
+       
+      
     }
   };
 
-  const handleEditCategory = (id,name)=>{
-    console.log()
-    setEditCategoryId(id)
-    setEditCategory(name)
-    setIsEditModalOpen(true)
-  }
+  const handleEditCategory = (id, name) => {
+    console.log();
+    setEditCategoryId(id);
+    setEditCategory(name);
+    setIsEditModalOpen(true);
+  };
 
-
-
-
-  return ( 
-      <>
+  return (
+    <>
+      <ToastContainer />
       <div className="bg-gray-50 w-full min-h-screen">
         <div>
           <div className="p-4">
@@ -124,13 +136,21 @@ const Category = () => {
                             <span>{category.category}</span>
                           </div>
                           <div className="px-2 ">
-                            <button onClick={()=>handleEditCategory(category.id,category.category)} className="text-blue-500">Edit</button>
+                            <button
+                              onClick={() =>
+                                handleEditCategory(
+                                  category.id,
+                                  category.category
+                                )
+                              }
+                              className="text-blue-500"
+                            >
+                              Edit
+                            </button>
                           </div>
                           <div className="px-4">
                             <button
-                              onClick={() =>
-                                handleDeleteCategory(category.id)
-                              }
+                              onClick={() => handleDeleteCategory(category.id)}
                               className="text-red-500"
                             >
                               Delete
@@ -148,7 +168,6 @@ const Category = () => {
       </div>
 
       <div className=" flex flex-col items-center justify-center h-full">
-      
         {isModalOpen && (
           <div
             className={`fixed inset-0 flex items-center justify-center z-10 ${
@@ -159,16 +178,14 @@ const Category = () => {
             <div className="modal z-20 p-4 rounded bg-white shadow-lg w-96">
               <div className="modal-content">
                 <h3 className="text-lg font-semibold mb-4">Add Category</h3>
-                
+
                 <input
                   type="text"
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
                   className="border rounded py-2 px-3 w-full mb-4"
                 />
-                 {error && (
-                <p className="text-red-500 text-sm mb-2">{error}</p>
-              )}
+                {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
                 <div className="flex justify-end">
                   <button
                     className="px-4 py-2 mr-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -178,10 +195,11 @@ const Category = () => {
                   </button>
                   <button
                     className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-                    onClick={() =>{ setIsModalOpen(false);
-                      setNewCategory("")
-                      setError('');}}
-                    
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      setNewCategory("");
+                      setError("");
+                    }}
                   >
                     Cancel
                   </button>
@@ -191,50 +209,49 @@ const Category = () => {
           </div>
         )}
 
-
-
-
-{isEditModalOpen && (
-                <div className={`fixed inset-0 flex items-center justify-center z-10 ${isEditModalOpen ? 'block' : 'hidden'}`}>
-                    <div className="fixed inset-0 bg-black opacity-50"></div>
-                    <div className="modal z-20 p-4 rounded bg-white shadow-lg w-96">
-                        <div className="modal-content">
-                            <h3 className="text-lg font-semibold mb-4">Edit Category</h3>
-                            <input
-                                type="text"
-                                value={editCategory}
-                                onChange={(e) => setEditCategory(e.target.value)}
-                                className="border rounded py-2 px-3 w-full mb-4"
-                            />
-                            <div className="flex justify-end">
-                                <button
-                                    className="px-4 py-2 mr-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                                    onClick={handleEditSubmit}
-                                >
-                                    Update
-                                </button>
-                                <button
-                                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-                                    onClick={() => {
-                                        setIsEditModalOpen(false);
-                                        setEditCategory('');
-                                        setEditCategoryId(null);
-                                    }}
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+        {isEditModalOpen && (
+          <div
+            className={`fixed inset-0 flex items-center justify-center z-10 ${
+              isEditModalOpen ? "block" : "hidden"
+            }`}
+          >
+            <div className="fixed inset-0 bg-black opacity-50"></div>
+            <div className="modal z-20 p-4 rounded bg-white shadow-lg w-96">
+              <div className="modal-content">
+                <h3 className="text-lg font-semibold mb-4">Edit Category</h3>
+                <input
+                  type="text"
+                  value={editCategory}
+                  onChange={(e) => setEditCategory(e.target.value)}
+                  className="border rounded py-2 px-3 w-full mb-4"
+                />
+                {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+                <div className="flex justify-end">
+                  <button
+                    className="px-4 py-2 mr-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    onClick={handleEditSubmit}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                    onClick={() => {
+                      setIsEditModalOpen(false);
+                      setEditCategory("");
+                      setEditCategoryId(null);
+                      setError("");
+                    }}
+                  >
+                    Cancel
+                  </button>
                 </div>
-            )}
-
-
-
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    
     </>
-  )
-}
+  );
+};
 
-export default Category
+export default Category;

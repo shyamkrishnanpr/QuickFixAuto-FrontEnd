@@ -35,7 +35,7 @@ export const editCategoryAsync = createAsyncThunk(
   async ({ id, newName }, thunkAPI) => {
     try {
       const response = await editCategoryApi(id,newName);
-      return {id,newName}
+      return response
     } catch (error) {
       console.log(error);
     }

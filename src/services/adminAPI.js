@@ -1,4 +1,5 @@
 import axios from "../Axios/axiosAdmin";
+import { toast } from "react-toastify";
 
 export const adminLoginApi = async(email,password)=>{
     try {
@@ -23,18 +24,19 @@ export const fetchCategoryApi = async()=>{
 export const addCategoryApi = async(category)=>{
     try {
         const response = await axios.post('/admin/addCategory',{category}) 
-        return response.data
+        return response
     } catch (error) {
-        console.log(error)
+        return error     
     }
 }
 
 export const editCategoryApi = async(id,newName)=>{
     try {
         const response = await axios.put(`/admin/editCategory/${id}`,{newName})
-        return response.data
+        return response
     } catch (error) {
-        console.log(error)
+        
+       return error
     }
 }
 
