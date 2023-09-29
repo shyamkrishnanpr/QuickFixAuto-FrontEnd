@@ -33,17 +33,17 @@ const DashBoardPage = () => {
   return (
     <>
       <Navbar />
-      <div style={{ position: 'relative', height: '100vh' }}>
+      <div style={{ position: 'relative', height: '100vh', containerStyle1 }} >
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
           <Landing />
-        </div>
-        <Carousel showArrows={true} showStatus={false} showIndicators={false} showThumbs={false} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+        </div >
+        {/* <Carousel showArrows={true} showStatus={false} showIndicators={false} showThumbs={false} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
           {banners?.map((banner) => (
             <div key={banner._id}>
-              <img src={`https://quickfixautos.shop/vehicleImages/${banner.bannerImage}`} alt={`Banner ${banner._id}`} />
+              <img src={`http://localhost:3000/vehicleImages/${banner.bannerImage}`} alt={`Banner ${banner._id}`} />
             </div>
           ))}
-        </Carousel>
+        </Carousel> */}
       </div>
     </>
   );
