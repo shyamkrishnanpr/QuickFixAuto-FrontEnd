@@ -33,7 +33,7 @@ const DashBoardPage = () => {
   return (
     <>
       <Navbar />
-      <div style={{ position: 'relative', height: '150vh' }} >
+      <div style={{ position: 'relative' }} >
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
           <Landing />
         </div >
@@ -44,7 +44,7 @@ const DashBoardPage = () => {
             </div>
           ))}
         </Carousel> */}
-        <img src="https://di-uploads-development.dealerinspire.com/raybrandttoyota/uploads/2018/11/Parts-Banner-3.jpg" alt="" />
+        <img className="h-screen" src="https://di-uploads-development.dealerinspire.com/raybrandttoyota/uploads/2018/11/Parts-Banner-3.jpg" alt="" />
 
       </div>
     </>
