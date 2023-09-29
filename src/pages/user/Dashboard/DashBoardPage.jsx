@@ -37,13 +37,15 @@ const DashBoardPage = () => {
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
           <Landing />
         </div >
-        <Carousel showArrows={true} showStatus={false} showIndicators={false} showThumbs={false} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+        {/* <Carousel showArrows={true} showStatus={false} showIndicators={false} showThumbs={false} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
           {banners?.map((banner) => (
             <div key={banner._id}>
               <img src="https://di-uploads-development.dealerinspire.com/raybrandttoyota/uploads/2018/11/Parts-Banner-3.jpg" alt={`Banner ${banner._id}`} />
             </div>
           ))}
-        </Carousel>
+        </Carousel> */}
+        <img src="https://di-uploads-development.dealerinspire.com/raybrandttoyota/uploads/2018/11/Parts-Banner-3.jpg" alt="" />
+
       </div>
     </>
   );
