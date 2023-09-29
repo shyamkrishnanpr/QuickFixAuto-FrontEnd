@@ -33,7 +33,7 @@ const DashBoardPage = () => {
   return (
     <>
       <Navbar />
-      <div style={{ position: 'relative', height: '100vh' }} >
+      <div style={{ position: 'relative', height: '150vh' }} >
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
           <Landing />
         </div >
