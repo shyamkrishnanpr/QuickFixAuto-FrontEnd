@@ -33,34 +33,39 @@ const Navbar = () => {
 
 
   return (
+    <>
+    
     <div>
-      <div>
-        <nav className="bg-gray-300 p-5">
-          <div className="flex items-center justify-between">
-            <Link
-              to="/user/dashboard"
-              className="text-red-700 font-bold text-2xl"
-            >
-              QuickFix Autos{" "}
-            </Link>
+  <nav className="bg-gradient-to-r from-red-600 via-red-800 to-red-900 p-5 ">
+    <div className="container mx-auto">
+      <div className="flex flex-col md:flex-row items-center justify-between">
+        <div className="flex items-center">
+          <Link
+            to="/user/dashboard"
+            className="text-white font-bold text-2xl"
+          >
+            QuickFix Autos
+          </Link>
+        </div>
 
-            <ul className="flex space-x-4 ">
-              <li className="relative">
-                <button
-                  onClick={toggleDropdown}
-                  className="text-white relative hover:text-black bg-red-700 px-2 py-1 rounded-md"
-                >
-                  {userName}
-                </button>
-                {isDropdownOpen && (
-                  <ul
-                  className="absolute top-full left-0 mt-4 bg-white border border-red-700 rounded-md shadow-md"
+        <ul className="flex space-x-4 mt-4 md:mt-0">
+          {userName ? (
+            <li className="relative group">
+              <button
+                onClick={toggleDropdown}
+                className="text-white hover:text-gray-300 px-2 py-1 rounded-md group-hover:bg-gray-600 transition duration-300"
+              >
+                {userName}
+              </button>
+              {isDropdownOpen && (
+                <ul
+                  className="absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-md shadow-md w-48 z-10"
                   onMouseDown={(e) => e.stopPropagation()}
                 >
                   <li>
                     <Link
                       to="/user/profile"
-                      className="block px-4 py-2 hover:bg-gray-200  transition duration-300"
+                      className="block px-4 py-2 hover:bg-gray-200 transition duration-300"
                     >
                       Profile
                     </Link>
@@ -74,32 +79,35 @@ const Navbar = () => {
                     </Link>
                   </li>
                 </ul>
-                
-                )}
-              </li>
+              )}
+            </li>
+          ) : null}
 
-              <li>
-                {!userToken ? (
-                  <Link
-                    to="/user/login"
-                    className="block text-white hover:text-red-500 p-2 rounded"
-                  >
-                    Login
-                  </Link>
-                ) : (
-                  <a
-                    onClick={handleLogout}
-                    className="text-white hover:text-red-500 cursor-pointer"
-                  >
-                    Logout
-                  </a>
-                )}
-              </li>
-            </ul>
-          </div>
-        </nav>
+          <li>
+            {!userToken ? (
+              <Link
+                to="/user/login"
+                className="block text-white hover:text-gray-300 px-4 py-2 rounded transition duration-300"
+              >
+                Login
+              </Link>
+            ) : (
+              <a
+                onClick={handleLogout}
+                className="text-white hover:text-gray-300 cursor-pointer px-4 py-2 rounded transition duration-300"
+              >
+                Logout
+              </a>
+            )}
+          </li>
+        </ul>
       </div>
     </div>
+  </nav>
+</div>
+
+  </>
+  
   );
 };
 
