@@ -123,8 +123,8 @@ const Landing = () => {
 
   return (
     <>
-      <div className="flex justify-end  ">
-        <div className="bg-gray-300 rounded-3xl shadow-lg p-6 w-1/4  mr-12 mt-14">
+      <div className="md:flex justify-end  ">
+        <div className="bg-gray-300 rounded-3xl shadow-lg p-6 w-full md:w-1/4 md:mr-12 mt-14">
           <h1 className="text-2xl text-red-600 font-semibold mb-4">
             Search Service centers near you...
           </h1>
