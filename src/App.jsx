@@ -5,9 +5,12 @@ import VendorRoutes from './Routes/VendorRoutes'
 import UserRoutes from './Routes/UserRoutes'
 
 import './App.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function App() {
   
+  AOS.init();
 
   return (
     <>

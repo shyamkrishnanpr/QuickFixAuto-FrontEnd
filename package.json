@@ -17,6 +17,7 @@
     "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^1.9.5",
     "antd": "^5.8.6",
+    "aos": "^3.0.0-beta.6",
     "axios": "^1.4.0",
     "chart.js": "^4.4.0",
     "dotenv": "^16.3.1",
